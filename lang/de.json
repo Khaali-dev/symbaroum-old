@@ -1,5 +1,6 @@
 {
   "ABILITY.NAME": "Name",
+  "ABILITY.REFERENCE": "Reference",
   "ABILITY.ACTIVE": "Erlernt",
   "ABILITY.ACTION": "Aktion",
   "ABILITY.DESCRIPTION": "Beschreibung",
@@ -80,6 +81,13 @@
   "ABILITY_LABEL.WRESTLING":"Wrestling",
   
   "ABILITY_ERROR.TARGET": "Zu viele Ziele",
+  
+  "ABILITY_BERSERKER.CHAT_ACTIVATE": " enters Berserker rage.",
+  "ABILITY_BERSERKER.CHAT_DESACTIVATE": " calms down and quits berserker rage.",
+  "ABILITY_BERSERKER.CHAT_RESULT_DESACTIVATE": "Combat stats revert to normal.",
+  "ABILITY_BERSERKER.CHAT_RESULT_LVL1": "Melee damage increased, base defense set to 5.",
+  "ABILITY_BERSERKER.CHAT_RESULT_LVL2": "Melee damage increased, armor bonus, base defense set to 5.",
+  "ABILITY_BERSERKER.CHAT_RESULT_LVL3": "Melee damage increased, armor bonus.",
 
   "ABILITY_LOREMASTER.CHAT_INTRO": " Weiss etwas über seine Geschichte.",
   "ABILITY_LOREMASTER.CHAT_SUCCESS": " Weiss nur wenig darüber.",
@@ -121,11 +129,14 @@
   "ARMOR.NAME": "Name",
   "ARMOR.PROTECTION": "Schutz",
   "ARMOR.PROTECTION_SHORT": "Schu.",
+  "ARMOR.PC_PROTECTION": "PC Prot.",
+  "ARMOR.NPC_PROTECTION": "NPC Prot.",
   "ARMOR.IMPEDING": "Behinderung",
   "ARMOR.DEFENSE": "Verteidigung",
   "ARMOR.COST": "Kosten",
   "ARMOR.QUALITY": "Qualität",
   "ARMOR.DESCRIPTION": "Beschreibung",
+  "ARMOR.BONUS_ONLY": "Stackable protection",
 
   "ARTIFACT.NAME": "Name",
   "ARTIFACT.ACTION": "Aktion",
@@ -141,6 +152,10 @@
   "ATTRIBUTE.STRONG": "Stärke",
   "ATTRIBUTE.VIGILANT": "Aufmerksam.",
   "ATTRIBUTE.CUSTOM": "Variabel",
+  "ATTRIBUTE.BASE": "Base",
+  "ATTRIBUTE.MODIFIER": "Modifier",
+  "ATTRIBUTE.BONUS": "Bonus",
+  "ATTRIBUTE.MODIFY": "Modify",
 
   "BIO.NAME": "Name",
   "BIO.RACE": "Volk",
@@ -171,6 +186,7 @@
   "BUTTON.POST_ITEM": "Sende Item",
   "BUTTON.ROLL": "Würfel",
   "BUTTON.CANCEL": "Abbruch",
+  "BUTTON.CONFIRM": "Confirm",
 
   "CHAT.GMTEXT_BUTTON": "This button is for GM use only. It will apply the effects to the tokens.",
   "CHAT.APPLY_BUTTON": "Wenden Sie die Ergebnisse auf das Token an",
@@ -202,7 +218,7 @@
   "COMBAT.CHAT_POISON_SUCCESS2": ",  dauer",
   "COMBAT.CHAT_MODIFIER": "Mod: ",
   "COMBAT.CHAT_DMG_PARAMS": "Schadensmodifikator: ",
-  "COMBAT.CHAT_DMG_PARAMS_HUNTER": "[Hunter's instinct] ",
+  "COMBAT.CHAT_DMG_PARAMS_HUNTER": "[Hunter] ",
   "COMBAT.CHAT_DMG_PARAMS_CUSTOM": "[Custom] ",
   "COMBAT.CHAT_DMG_PARAMS_BACKSTAB": "[Hinterhältiger Angriff] ",
   "COMBAT.CHAT_DMG_PARAMS_ADVANTAGE": "[Vorteil] ",
@@ -365,6 +381,11 @@
   "POWER_BENDWILL.CHAT_INTRO_M": " hällt Zwang aufrecht.",
   "POWER_BENDWILL.CHAT_SUCCESS": " kontrolliert ",
   "POWER_BENDWILL.CHAT_FAILURE": " wiedersteht dem Zwang.",
+    
+  "POWER_BLESSEDSHIELD.CHAT_INTRO": " tries to invoke Prios' protection.",
+  "POWER_BLESSEDSHIELD.CHAT_SUCCESS": " is surrounded by a shield of light.",
+  "POWER_BLESSEDSHIELD.CHAT_FAILURE": " stays in darkness.",
+  "POWER_BLESSEDSHIELD.PROTECTED": " is protected",
   
   "POWER_BRIMSTONECASC.CHAT_INTRO": " wirft Feuer auf sein Ziel.",
   "POWER_BRIMSTONECASC.CHAT_SUCCESS": " fängt Feuer.",
@@ -394,6 +415,11 @@
   "POWER_LARVAEBOILS.CHAT_INTRO_M": " hält den Larvenfrass aufrecht.",
   "POWER_LARVAEBOILS.CHAT_SUCCESS": " wird von innen von den Larven gefressen.",
   "POWER_LARVAEBOILS.CHAT_FAILURE": " wiedersteht dem Larvenfrass.",
+
+  "POWER_TORMENTINGSPIRITS.CHAT_INTRO":" tries to invoke tormenting spirits.",
+  "POWER_TORMENTINGSPIRITS.CHAT_INTRO_M":" tries to maintain the tormenting spirits.",
+  "POWER_TORMENTINGSPIRITS.CHAT_SUCCESS":" invokes spirits around  ",
+  "POWER_TORMENTINGSPIRITS.CHAT_FAILURE":" fails the invokation.",
   
   "QUALITY.AREAMRR": "Bereichseffekt – Nahkampf Reichweite",
   "QUALITY.AREASRR": " Bereichseffekt – Kurze Reichweite",
@@ -411,6 +437,7 @@
   "QUALITY.JOINTED": "Gelenkig",
   "QUALITY.LONG": "Lang",
   "QUALITY.MASSIVE": "Robust",
+  "QUALITY.MYSTICAL": "Mystical",
   "QUALITY.PRECISE": "Präzise",
   "QUALITY.REINFORCED": "Verstärkt",
   "QUALITY.RETURNING": "Wiederkehrend",
@@ -418,6 +445,15 @@
   "QUALITY.SHORT": "Kurz",
   "QUALITY.UNWIELDY": "Unhandlich",
   "QUALITY.WRECKING": "Zerstörend",
+  "QUALITY.ACIDCOATED": "Acid coated",
+  "QUALITY.BANE": "Bane",
+  "QUALITY.DEATHRUNE": "Death Rune",
+  "QUALITY.DESECRATED": "Desecrated",
+  "QUALITY.FLAMING": "Flaming",
+  "QUALITY.HALLOWED": "Hallowed",
+  "QUALITY.POISON": "Poison",
+  "QUALITY.THUNDERING": "Thundering",
+  "QUALITY.RETRIBUTIVE": "Retributive",
 
   "RITUAL.TRADITION": "Tradition",
   "RITUAL.DESCRIPTION": "Beschreibung",
@@ -544,11 +580,23 @@
   "WEAPON.NAME": "Name",
   "WEAPON.DAMAGE": "Schaden",
   "WEAPON.DAMAGE_SHORT": "Sch.",
+  "WEAPON.PC_DAMAGE": "PC Dmg",
+  "WEAPON.NPC_DAMAGE": "NPC Dmg",
   "WEAPON.QUALITY": "Qualität",
   "WEAPON.COST": "Kosten",
   "WEAPON.ATTRIBUTE": "Eigenschaft",
   "WEAPON.DESCRIPTION": "Beschreibung",
   "WEAPON.NUMBER": "Nummer",
+
+  "WEAPON_CLASS.LABEL": "Weapon type",
+  "WEAPON_CLASS.1HANDED": "Single-handed",
+  "WEAPON_CLASS.SHORT": "Short",
+  "WEAPON_CLASS.LONG": "Long",
+  "WEAPON_CLASS.UNARMED": "Unarmed Attack",
+  "WEAPON_CLASS.HEAVY": "Heavy",
+  "WEAPON_CLASS.RANGED": "Ranged",
+  "WEAPON_CLASS.SHIELD":"Schild",
+  "WEAPON_CLASS.THROWN": "Thrown",
 
   "SYMBAROUM.OPTIONAL_CRIT": "Optional Kritischer Wurf",
   "SYMBAROUM.OPTIONAL_CRIT_HINT": "Aktiviere Angrifsboni und Verteidigungspatzer bei Würfen von   1 und 20 wie sie im Grundregelwerk auf Seite 195 beschrieben werden.",
@@ -561,5 +609,14 @@
   "SYMBAROUM.OPTIONAL_MORERITUALS": "Erlaube more rituals",
   "SYMBAROUM.OPTIONAL_MORERITUALS_HINT": "Ermögliche  „more rituals“ wie sie im Advanced Players Guide auf Seite 103 beschrieben sind",
   "SYMBAROUM.OPTIONAL_AUTOCOMBAT": "Combat enhancement",
-  "SYMBAROUM.OPTIONAL_AUTOCOMBAT_HINT": "Check to enable QoL enhancement for smooth combat. Read the Symbaroum system guide for FoundryVTT in the compendium section for more info"
+  "SYMBAROUM.OPTIONAL_AUTOCOMBAT_HINT": "Check to enable QoL enhancement for smooth combat. Read the Symbaroum system guide for FoundryVTT in the compendium section for more info",
+  "SYMBAROUM.OPTIONAL_SAVECOMBATROLL": "Combat settings for rolls",
+  "SYMBAROUM.OPTIONAL_SAVECOMBATROLL_HINT": "Check to enable QoL enhancement for keeping all modifiers when rolling combat (weapon/defense)",
+  "SYMBAROUM.OPTIONAL_SAVEATTRIBUTEROLL": "Attribute settings for rolls",
+  "SYMBAROUM.OPTIONAL_SAVEATTRIBUTEROLL_HINT": "Check to enable QoL enhancement for keeping all modifiers when rolling attribute tests",
+  "SYMBAROUM.OPTIONAL_SHOWMODIFIERSINDIALOGUE": "Show modifers in targetted attribute rolls",
+  "SYMBAROUM.OPTIONAL_SHOWMODIFIERSINDIALOGUE_HINT": "Check to enable QoL enhancement for showing attribute modifiers before making the roll",
+  "SYMBAROUM.OPTIONAL_SHOWREFERENCE": "Allow reference modification",
+  "SYMBAROUM.OPTIONAL_SHOWREFERENCE_HINT": "Warning - GM Only - allow to manually adjust reference implementation for abilities, traits and mystical powers. Requires refresh."
+
 }
