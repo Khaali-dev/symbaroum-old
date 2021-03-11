@@ -46,8 +46,8 @@ export async function rollAttribute(actor, actingAttributeName, targetActor, tar
   if (hasWeapon && rollResults.hasSucceed) {
     dam = weapon.damage.pc;
     if (dam !== '') {
-      if ( advantage ) { dam += "+1d4[advantage]"; }
-      if ( rollResults.critSuccess ) { dam += "+1d6[critical]"; }
+      if ( advantage ) { dam += "+1d4["+game.i18n.localize('ROLL.ADVANTAGESHORT')+"]"; }
+      if ( rollResults.critSuccess ) { dam += "+1d6["+game.i18n.localize('ROLL.CRITSHORT')+"]"; }
       if( damModifier !== '') { dam = dam+"+"+damModifier; }
       
 
@@ -77,10 +77,11 @@ export async function rollAttribute(actor, actingAttributeName, targetActor, tar
   let rollData = {
     subImg: actor.data.img,
     name: `${getAttributeLabel(actor, actingAttributeName) } (${ getAttributeValue(actor, actingAttributeName) }) ⬅ ${getAttributeLabel(targetActor, targetAttributeName)} (${finalMod})`,
-    margin: game.i18n.localize('CHAT.MARGIN') + (rollResults.diceTarget - rollResults.diceResult).toString(),
+    margin: (rollResults.diceTarget - rollResults.diceResult),
     hasSucceed: rollResults.hasSucceed,
     diceResult: rollResults.diceResult,
     diceBreakdown: rollResults.diceBreakdown,
+    diceTarget: rollResults.diceTarget,
     hasArmor: hasArmor,
     hasWeapon: hasWeapon,
     armor: armorResults,
@@ -183,6 +184,7 @@ export function getAttributeValue(actor, attributeName) {
   {string}  targetAttributeLabel
   {boolean}   hasSucceed,  // true = success
   {number}   diceResult,  // the result of the kept dice
+  {number}   diceTarget, // The final target
   {number}   favour (same as @Params)
   {number}   modifier (same as @Param)
   {array}   dicesResult,  //if favour/unfavour, an array of the results of the 2 thrown dice, or null
@@ -439,7 +441,8 @@ export async function simpleDamageRoll(attackFromPC, actor, damageFormula, targe
     newRollDmgString = damageFormula;
     //build roll string
     if(!ignoreArmor){
-      newRollDmgString += " - " + targetData.actor.data.data.combat.protectionNpc + "["+targetData.actor.data.data.combat.armor+"]";
+      //      newRollDmgString += " - " + targetData.actor.data.data.combat.protectionNpc + "["+targetData.actor.data.data.combat.armor+"]";
+      newRollDmgString += " - " + targetData.actor.data.data.combat.protectionNpc;
     }
   }
   else{

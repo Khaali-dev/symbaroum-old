@@ -122,6 +122,7 @@ export class SymbaroumActor extends Actor {
 
         data.data.combat = {
             id: activeArmor._id,
+            img: activeArmor.img,
             armor: activeArmor.name,
             protectionPc: activeArmor.pc,
             protectionNpc: activeArmor.npc,
@@ -264,11 +265,18 @@ export class SymbaroumActor extends Actor {
             let attribute = item.data.data.attribute;
             let tooltip = "";
             let baseDamage = item.data.data.baseDamage;
+            if( baseDamage === undefined) {
+                baseDamage = "1d8";
+            }
             let bonusDamage = "";
             let shortBonusDamage = "";
-            if(item.data.data.bonusDamage != ""){
-                bonusDamage = "+" + item.data.data.bonusDamage;
-                shortBonusDamage += "+" + item.data.data.bonusDamage;;
+            if( item.data.data.bonusDamage !== undefined && item.data.data.bonusDamage != ""){
+                let plus = "+";
+                if(item.data.data.bonusDamage.charAt(0) === '+') {
+                    plus = "";
+                }
+                bonusDamage = plus + item.data.data.bonusDamage;
+                shortBonusDamage += plus + item.data.data.bonusDamage;;
             }
             if(item.data.data?.isMelee){
                 if(ironFistLvl == 2){
@@ -401,11 +409,11 @@ export class SymbaroumActor extends Actor {
             let DmgRoll= new Roll(pcDamage).evaluate({maximize: true});
             let npcDamage = Math.ceil(DmgRoll.total/2);
             let baseDmgRoll = new Roll(baseDamage).evaluate({maximize: true});
-            if(item.data.data.qualities.massive) {
-                pcDamage = "2d"+(baseDmgRoll)+"kh"+bonusDamage;
-                pcShort = "2d"+(baseDmgRoll)+"kh"+shortBonusDamage;
+            if(item.data.data.qualities?.massive) {
+                pcDamage = "2d"+(baseDmgRoll.total)+"kh"+bonusDamage;
+                pcShort = "2d"+(baseDmgRoll.total)+"kh"+shortBonusDamage;
             }
-            if(item.data.data.qualities.deepImpact){
+            if(item.data.data.qualities?.deepImpact){
                 pcDamage += "+1";
                 pcShort += " +1";
                 npcDamage+= 1;
@@ -414,6 +422,7 @@ export class SymbaroumActor extends Actor {
             let itemID = item.data._id;
             weaponArray.push({
                 _id: itemID,
+                sort: item.data.sort,
                 name : item.data.name,
                 img: item.data.img,
                 attribute: attribute,
@@ -440,12 +449,19 @@ export class SymbaroumActor extends Actor {
     _evaluateProtection(item, extraArmorBonus) {
         let tooltip = "";
         let protection = item.data.data.baseProtection;
+        if( protection === undefined) {
+            protection = "0";
+        }
         let impeding = item.data.data.impeding;
         let bonusProtection = "";
-        if(item.data.data.bonusProtection != ""){
+        if(item.data.data.bonusProtection !== undefined && item.data.data.bonusProtection != ""){
+            let plus = "+";
+            if(item.data.data.bonusProtection.charAt(0) === '+' ) { 
+                plus = "";
+            }
             bonusProtection = "+" + item.data.data.bonusProtection;
         }
-        if(item.data.data.baseProtection != "0" || item.data.data.bonusProtection == "")
+        if(protection != "0" || bonusProtection == "")
         {
             let manatarms = this.items.filter(element => element.data.data?.reference === "manatarms");
             if(manatarms.length > 0){
@@ -483,10 +499,20 @@ export class SymbaroumActor extends Actor {
                 bonusProtection += "+1d4";
                 tooltip += game.i18n.localize("ABILITY_LABEL.BERSERKER") + ", ";
             }
-            if (extraArmorBonus != ""){bonusProtection += "+" + extraArmorBonus}
+            if (extraArmorBonus != ""){ bonusProtection += "+" + extraArmorBonus}
         }
-        let pcProt = protection + bonusProtection;
-        let armorRoll= new Roll(pcProt).evaluate({maximize: true});
+        let pcProt = "";
+        let armorRoll= null;
+        if( protection === "0" && bonusProtection === "") {
+            armorRoll = new Roll("0").evaluate({maximize: true});    
+        } else if(protection === "0") {
+            pcProt = bonusProtection;
+            armorRoll = new Roll(pcProt).evaluate({maximize: true});    
+        } else {
+            pcProt = protection + bonusProtection;
+            armorRoll = new Roll(pcProt).evaluate({maximize: true});
+        }
+
         let npcProt = Math.ceil(armorRoll.total/2);
         
         if(item.data.data?.qualities?.reinforced){

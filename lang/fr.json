@@ -133,6 +133,8 @@
     "ARMOR.NAME": "Nom",
     "ARMOR.PROTECTION": "Protection",
     "ARMOR.PROTECTION_SHORT": "Prot.",
+    "ARMOR.BASE_PROT": "Protection de base",
+    "ARMOR.BONUS_PROT": "Protection supplémentaire",
     "ARMOR.PC_PROTECTION": "Prot. PJ",
     "ARMOR.NPC_PROTECTION": "Prot. PNJ",
     "ARMOR.IMPEDING": "Gênante",
@@ -235,6 +237,7 @@
     "COMBAT.PARAMS_PRECISE": "[arme précise], ",
     "COMBAT.DAMAGE": "Dégâts infligés: ",
 
+    "DIALOG.VERSUS": "Versus",
     "DIALOG.ATTRIBUTE": "Attribut",
     "DIALOG.MODIFIER": "Mod. jet d'attribut",
     "DIALOG.ADVANTAGE": "Avantage",
@@ -243,6 +246,7 @@
     "DIALOG.FAVOUR_FAVOUR": "Faveur", 
     "DIALOG.FAVOUR_DISFAVOUR": "Défaveur",
     "DIALOG.DAMAGE_MODIFIER": "Mod. dégâts",
+    "DIALOG.WEAPON_DAMAGE": "Dam. roll",  
     "DIALOG.CASTING": "Lancement du talent",
     "DIALOG.MAINTAINING": "Jet pour maintenir le talent",
     "DIALOG.AUTOPARAMS": "Modificateurs déjà comptés: ",
@@ -467,6 +471,9 @@
     "RITUAL.TRADITION": "Tradition",
     "RITUAL.DESCRIPTION": "Description",
 
+    "ROLL.CRITSHORT":"crit",
+    "ROLL.ADVANTAGESHORT":"adv",
+  
     "TAB.MAIN": "PRINCIPAL",
     "TAB.GEAR": "ÉQUIPEMENTS",
     "TAB.BIO": "BIO",
@@ -587,6 +594,8 @@
     "WEAPON.NAME": "Nom",
     "WEAPON.DAMAGE": "Dégâts",
     "WEAPON.DAMAGE_SHORT": "Dégâts",
+    "WEAPON.BASE_DAMAGE": "Dégâts de base",
+    "WEAPON.BONUS_DAMAGE": "Dégâts supplémentaires",
     "WEAPON.PC_DAMAGE": "Dégâts PJ",
     "WEAPON.NPC_DAMAGE": "Dégâts PNJ",
     "WEAPON.QUALITY": "Qualité",

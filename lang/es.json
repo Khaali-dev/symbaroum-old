@@ -134,6 +134,8 @@
   "ARMOR.NAME": "Nombre",
   "ARMOR.PROTECTION": "Protección",
   "ARMOR.PROTECTION_SHORT": "Prot.",
+  "ARMOR.BASE_PROT": "Base Protection",
+  "ARMOR.BONUS_PROT": "Bonus Protection",
   "ARMOR.PC_PROTECTION": "PC Prot.",
   "ARMOR.NPC_PROTECTION": "NPC Prot.",
   "ARMOR.IMPEDING": "Incomodidad",
@@ -257,6 +259,7 @@
   "DIALOG.CASTING_ATTRIBUTE": "Atributo de origen",
   "DIALOG.RESIST_ATTRIBUTE": "Atributo de oposición",
 
+  "DIALOG.VERSUS": "Versus",
   "DIALOG.ATTRIBUTE": "Atributo",
   "DIALOG.MODIFIER": "Modificador",
   "DIALOG.ADVANTAGE": "Ventaja",
@@ -265,6 +268,7 @@
   "DIALOG.FAVOUR_FAVOUR": "Favorable", 
   "DIALOG.FAVOUR_DISFAVOUR": "Desfavorable",
   "DIALOG.DAMAGE_MODIFIER": "Mod. daño",
+  "DIALOG.WEAPON_DAMAGE": "Dam. roll",  
   "DIALOG.IMPEDING": "¿Incluir impedimento?",
   "DIALOG.CASTING": "Casteo inicial",
   "DIALOG.MAINTAINING": "Manteniendo habilidad",
@@ -464,6 +468,9 @@
   "RITUAL.TRADITION": "Tradición",
   "RITUAL.DESCRIPTION": "Descr.",
 
+  "ROLL.CRITSHORT":"crit",
+  "ROLL.ADVANTAGESHORT":"adv",
+
   "TAB.MAIN": "PRINCIPAL",
   "TAB.GEAR": "EQUIPAMIENTO",
   "TAB.BIO": "BIO",
@@ -586,6 +593,8 @@
   "WEAPON.NAME": "Nombre",
   "WEAPON.DAMAGE": "Daño",
   "WEAPON.DAMAGE_SHORT": "Daño",
+  "WEAPON.BASE_DAMAGE": "Base damage",
+  "WEAPON.BONUS_DAMAGE": "Bonus damage",
   "WEAPON.PC_DAMAGE": "PC Dmg",
   "WEAPON.NPC_DAMAGE": "NPC Dmg",
   "WEAPON.QUALITY": "Calidad",
