@@ -289,7 +289,7 @@ export class SymbaroumActor extends Actor {
                 shortBonusDamage += plus + item.data.data.bonusDamage;;
             }
             if(item.data.data?.isMelee){
-                if(ironFistLvl == 2){
+                if(ironFistLvl > 1){
                     bonusDamage += " +1d4["+game.i18n.localize("ABILITY_LABEL.IRON_FIST")+"]";
                     shortBonusDamage += " +1d4";
                     tooltip += game.i18n.localize("ABILITY_LABEL.IRON_FIST") + ironFistLvl.toString() + ", ";
