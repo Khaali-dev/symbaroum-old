@@ -161,16 +161,17 @@ export class SymbaroumItem extends Item {
 
     _computeExperienceCost(system) {
         let expCost = 0;
+        let progCost = 0;
 
         if (system.isRitual) {
             system.actions = "Ritual";
         }
         else if (system.isBurden) {
             system.actions = "Burden";
-            expCost = -5 * system.level;
+            progCost = -5 * system.level;
         } else if (system.isBoon) {
             system.actions = "Boon";
-            expCost = 5 * system.level;
+            progCost = 5 * system.level;
         } else if (system.isPower) {
 			
             let novice = "-";
@@ -182,11 +183,11 @@ export class SymbaroumItem extends Item {
             }
             if (system.adept.isActive && !system.marker) { 
                 adept = system.adept.action;
-                expCost += 20;
+                expCost += 15;
             }
             if (system.master.isActive && !system.marker) { 
                 master = system.master.action;
-                expCost += 30;
+                expCost += 20;
             }
 
             if(system.marker) {
