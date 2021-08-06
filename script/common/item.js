@@ -391,6 +391,7 @@ export class SymbaroumItem extends Item {
              {label: game.i18n.localize('TRAIT_LABEL.DEVOUR'), value: "devour"},
              {label: game.i18n.localize('TRAIT_LABEL.DIMINUTIVE'), value: "diminutive"},
              {label: game.i18n.localize('TRAIT_LABEL.ENTHRALL'), value: "enthrall"},
+             {label: game.i18n.localize('TRAIT_LABEL.EARTHBOUND'), value: "earthbound"},
              {label: game.i18n.localize('TRAIT_LABEL.FREESPIRIT'), value: "freespirit"},
              {label: game.i18n.localize('TRAIT_LABEL.GRAPPLINGTONGUE'), value: "grapplingtongue"},
              {label: game.i18n.localize('TRAIT_LABEL.GRAVELYCOLD'), value: "gravelycold"},
@@ -417,6 +418,7 @@ export class SymbaroumItem extends Item {
              {label: game.i18n.localize('TRAIT_LABEL.REGENERATION'), value: "regeneration"},
              {label: game.i18n.localize('TRAIT_LABEL.ROBUST'), value: "robust"},
              {label: game.i18n.localize('TRAIT_LABEL.ROOTWALL'), value: "rootwall"},
+             {label: game.i18n.localize('TRAIT_LABEL.SHAPESHIFTER'), value: "shapeshifter"},
              {label: game.i18n.localize('TRAIT_LABEL.SPIRITFORM'), value: "spiritform"},
              {label: game.i18n.localize('TRAIT_LABEL.STURDY'), value: "sturdy"},
              {label: game.i18n.localize('TRAIT_LABEL.SUMMONER'), value: "summoner"},
@@ -428,6 +430,7 @@ export class SymbaroumItem extends Item {
              {label: game.i18n.localize('TRAIT_LABEL.UNDEAD'), value: "undead"},
              {label: game.i18n.localize('TRAIT_LABEL.WEB'), value: "web"},
              {label: game.i18n.localize('TRAIT_LABEL.WINGS'), value: "wings"},
+             {label: game.i18n.localize('TRAIT_LABEL.WISDOM_AGES'), value: "wisdomages"},
              {label: game.i18n.localize('TRAIT_LABEL.WRECKER'), value: "wrecker"}  
         ];
         let list;
@@ -471,7 +474,7 @@ export class SymbaroumItem extends Item {
         }).render(true);
     }
     
-    async makeAction(actor, level = 1){
+    /*async makeAction(actor, level = 1){
 
         if(this.data.data.reference === ""){
             await this.affectReference();
@@ -481,44 +484,6 @@ export class SymbaroumItem extends Item {
             return;
         }
 
-        const scriptedAbilities =
-        [{reference: "alchemy", level: [1, 2, 3], function: alchemy},
-        {reference: "acrobatics", level: [1, 2, 3], function: acrobatics},
-        //{reference: "backstab", level: [1, 2, 3], function: attackRoll},
-        {reference: "beastlore", level: [1, 2, 3], function: beastlore},
-        {reference: "berserker", level: [1, 2, 3], function: berserker},
-        {reference: "dominate", level: [1, 2, 3], function: dominatePrepare},
-        //{reference: "huntersinstinct", level: [1, 2, 3], function: attackRoll},
-        {reference: "leader", level: [1, 2, 3], function: leaderPrepare},
-        {reference: "loremaster", level: [1, 2, 3], function: loremaster},
-        {reference: "medicus", level: [1, 2, 3], function: medicus},
-        //{reference: "shieldfighter", level: [1, 2, 3], function: attackRoll},
-        {reference: "recovery", level: [1, 2, 3], function: recoveryPrepare},
-        {reference: "strangler", level: [1, 2, 3], function: stranglerPrepare},
-        {reference: "witchsight", level: [1, 2, 3], function: witchsight}];
-
-        const scriptedPowers = 
-        [{reference: "anathema", level: [1, 2, 3], function: anathemaPrepare},
-        {reference: "brimstonecascade", level: [1, 2, 3], function: brimstoneCascadePrepare},
-        {reference: "bendwill", level: [1, 2, 3], function: bendWillPrepare},
-        {reference: "blackbolt", level: [1, 2, 3], function: blackBoltPrepare},
-        {reference: "blessedshield", level: [1, 2, 3], function: blessedshieldPrepare},
-        {reference: "confusion", level: [1, 2, 3], function: confusionPrepare},
-        {reference: "curse", level: [1, 2, 3], function: cursePrepare},
-        {reference: "entanglingvines", level: [1, 2, 3], function: entanglingvinesPrepare},
-        {reference: "holyaura", level: [1, 2, 3], function: holyAuraPrepare},
-        {reference: "inheritwound", level: [1, 2, 3], function: inheritWound},
-        {reference: "larvaeboils", level: [1, 2, 3], function: larvaeBoilsPrepare},
-        {reference: "layonhands", level: [1, 2, 3], function: layonhandsPrepare},
-        {reference: "levitate", level: [1, 2, 3], function: levitatePrepare},
-        {reference: "maltransformation", level: [1, 2, 3], function: maltransformationPrepare},
-        {reference: "mindthrow", level: [1, 2, 3], function: mindthrowPrepare},
-        {reference: "priosburningglass", level: [1, 2, 3], function: priosburningglassPrepare},
-        {reference: "tormentingspirits", level: [1, 2, 3], function: tormentingspiritsPrepare},
-        {reference: "unnoticeable", level: [1, 2, 3], function: unnoticeablePrepare}];
-
-        const scriptedTraits = 
-        [{reference: "regeneration", level: [1, 2, 3], function: regeneration}];
         let list;
         if(this.data.type === "ability"){
             list = scriptedAbilities;
@@ -542,9 +507,52 @@ export class SymbaroumItem extends Item {
             ui.notifications.error("Not yet implemented");
             return;
         }
-    }
+    }*/
 }
 
+export const scriptedAbilities =
+[{reference: "alchemy", level: [1, 2, 3], function: simpleRollAbility},
+{reference: "acrobatics", level: [1, 2, 3], function: simpleRollAbility},
+{reference: "artifactcrafting", level: [1, 2, 3], function: simpleRollAbility},
+//{reference: "backstab", level: [1, 2, 3], function: attackRoll},
+{reference: "beastlore", level: [1, 2, 3], function: simpleRollAbility},
+{reference: "berserker", level: [1, 2, 3], function: berserker},
+{reference: "blacksmith", level: [1, 2, 3], function: simpleRollAbility},
+{reference: "dominate", level: [1, 2, 3], function: dominatePrepare},
+//{reference: "huntersinstinct", level: [1, 2, 3], function: attackRoll},
+{reference: "leader", level: [1, 2, 3], function: leaderPrepare},
+{reference: "loremaster", level: [1, 2, 3], function: simpleRollAbility},
+{reference: "medicus", level: [1, 2, 3], function: medicusPrepare},
+{reference: "quickdraw", level: [1, 2, 3], function: simpleRollAbility},
+//{reference: "shieldfighter", level: [1, 2, 3], function: attackRoll},
+{reference: "recovery", level: [1, 2, 3], function: recoveryPrepare},
+{reference: "strangler", level: [1, 2, 3], function: stranglerPrepare},
+{reference: "witchsight", level: [1, 2, 3], function: witchsight}];
+
+export const scriptedPowers = 
+[{reference: "anathema", level: [1, 2, 3], function: anathemaPrepare},
+{reference: "brimstonecascade", level: [1, 2, 3], function: brimstoneCascadePrepare},
+{reference: "bendwill", level: [1, 2, 3], function: bendWillPrepare},
+{reference: "blackbolt", level: [1, 2, 3], function: blackBoltPrepare},
+{reference: "blessedshield", level: [1, 2, 3], function: blessedshieldPrepare},
+{reference: "confusion", level: [1, 2, 3], function: confusionPrepare},
+{reference: "curse", level: [1, 2, 3], function: cursePrepare},
+{reference: "entanglingvines", level: [1, 2, 3], function: entanglingvinesPrepare},
+{reference: "holyaura", level: [1, 2, 3], function: holyAuraPrepare},
+{reference: "inheritwound", level: [1, 2, 3], function: inheritWound},
+{reference: "larvaeboils", level: [1, 2, 3], function: larvaeBoilsPrepare},
+{reference: "layonhands", level: [1, 2, 3], function: layonhandsPrepare},
+{reference: "levitate", level: [1, 2, 3], function: levitatePrepare},
+{reference: "maltransformation", level: [1, 2, 3], function: maltransformationPrepare},
+{reference: "mindthrow", level: [1, 2, 3], function: mindthrowPrepare},
+{reference: "priosburningglass", level: [1, 2, 3], function: priosburningglassPrepare},
+{reference: "tormentingspirits", level: [1, 2, 3], function: tormentingspiritsPrepare},
+{reference: "unnoticeable", level: [1, 2, 3], function: unnoticeablePrepare}];
+
+export const scriptedTraits = 
+[{reference: "regeneration", level: [1, 2, 3], function: regeneration},
+{reference: "shapeshifter", level: [1, 2, 3], function: simpleRollAbility},
+{reference: "wisdomages", level: [1, 2, 3], function: simpleRollAbility}];
 
 const weaponReferences = [
     "1handed",
@@ -579,6 +587,34 @@ const weaponReferences = [
             return(game.i18n.localize('GEAR.OTHER'));
     }
     return(game.i18n.localize('GEAR.OTHER'));
+}
+
+export function markScripted(item){
+    if(item.data.data.reference){
+        let list;
+        if(item.data.type === "ability"){
+            list = scriptedAbilities;
+        }
+        else if(item.data.type === "mysticalPower"){
+            list = scriptedPowers;
+        }
+        else if(item.data.type === "trait"){
+            list = scriptedTraits;
+        }
+        const ability = list.find(element => (element.reference === item.data.data.reference));
+        if(ability){
+            item.data.data.script = ability.function;
+            item.data.data.hasScript = true;
+        }
+        else {
+            item.data.data.script = undefined;
+            item.data.data.hasScript = false;
+        }
+    }
+    else{
+        item.data.data.script = undefined;
+        item.data.data.hasScript = false;
+    }
 }
 
 /*get the target token, its actor, and evaluate which attribute this actor will use for opposition
@@ -923,6 +959,7 @@ async function modifierDialog(functionStuff){
     let hunterBonus = functionStuff.hunterBonus ?? false;
     let contextualDamage = functionStuff.contextualDamage ?? false;
     let leaderTarget = functionStuff.targetData.leaderTarget ?? false;
+    let medicus = functionStuff.medicus ?? false;
     let weaponDamage = "";
     let actorWeapons;
     let askImpeding = false;
@@ -997,7 +1034,8 @@ async function modifierDialog(functionStuff){
         defaultDamModifier: "",
         checkMaintain: functionStuff.checkMaintain,
         askWeapon: functionStuff.askWeapon,
-        weapons : actorWeapons
+        weapons : actorWeapons,
+        medicus : medicus
     });
     let title;
     if(functionStuff.ability){title = functionStuff.ability.name}
@@ -1116,6 +1154,37 @@ async function modifierDialog(functionStuff){
                             functionStuff.dmgData.hunterIDmg = false;
                         }
                     }
+                }
+                if(medicus){
+                    if(hasTarget){
+                        functionStuff.herbalCure = html.find("#herbalcure")[0].checked;
+                        functionStuff.medicusExam = html.find("#exam")[0].checked;
+                        let customHealingFormula = html.find("#customhealing")[0].value;
+                        if(customHealingFormula.length > 0){
+                            functionStuff.healFormulaSucceed = customHealingFormula;
+                        }
+                        else if(functionStuff.herbalCure){
+                            functionStuff.subText += ", " + game.i18n.localize('ABILITY_MEDICUS.HERBALCURE');
+                            if(functionStuff.powerLvl.level == 1){
+                                functionStuff.healFormulaSucceed = "1d6"
+                            }
+                            else if(functionStuff.powerLvl.level == 2){
+                                functionStuff.healFormulaSucceed = "1d8"
+                            }
+                            else{
+                                functionStuff.healFormulaSucceed = "1d10";
+                                functionStuff.healFormulaFailed = "1d6";
+                            }
+                        }
+                        else functionStuff.subText += ", " + game.i18n.localize('ABILITY_MEDICUS.NOHERBALCURE');
+                        if(!functionStuff.medicusExam) {
+                            functionStuff.removeTargetEffect = ["icons/svg/blood.svg"];
+                            functionStuff.introText= functionStuff.actor.data.name + game.i18n.localize('ABILITY_MEDICUS.CHAT_INTRO');
+                            functionStuff.resultTextFail = game.i18n.localize('ABILITY_MEDICUS.CHAT_FAILURE');
+                            functionStuff.resultTextSuccess = functionStuff.actor.data.name + game.i18n.localize('ABILITY_MEDICUS.CHAT_SUCCESS');
+                        }
+                    }
+                    else functionStuff.medicusExam = true;
                 }
                 let rollData = [];
                 functionStuff.favour = finalFavour;
@@ -1562,6 +1631,8 @@ async function attackResult(rollData, functionStuff){
         poisonChatResult: "",
         printBleed: false,
         bleedChat: "",
+        printFlaming: false,
+        flamingChat: "",
     }
     if(functionStuff.autoParams != ""){templateData.subText += ", " + functionStuff.autoParams};
 
@@ -1655,6 +1726,23 @@ async function attackResult(rollData, functionStuff){
             tokenId: functionStuff.targetData.token.id,
             addEffect: "icons/svg/blood.svg"
         });
+    }
+    if(functionStuff.weapon.qualities.flaming && hasDamage){
+        let flamingRoundsRoll= 2;
+        let flamingRounds = 2;
+        let flamingDamage = " 2";
+        if(functionStuff.attackFromPC){
+            flamingRoundsRoll= new Roll("1d4").evaluate();
+            flamingRounds = flamingRoundsRoll.total;
+            flamingDamage = " 1d4"
+        }
+        flagDataArray.push({
+            tokenId: functionStuff.targetData.token.id,
+            addEffect: "icons/svg/fire.svg",
+            effectDuration: flamingRounds
+        });
+        templateData.printFlaming = true;
+        templateData.flamingChat = functionStuff.targetData.token.data.name + game.i18n.localize('COMBAT.CHAT_FLAMING_SUCCESS1') + flamingDamage  + game.i18n.localize('COMBAT.CHAT_POISON_SUCCESS2')  + flamingRounds.toString();
     }
     const html = await renderTemplate("systems/symbaroum/template/chat/combat.html", templateData);
     const chatData = {
@@ -1796,7 +1884,7 @@ async function standardPowerResult(rollData, functionStuff){
     if(functionStuff.autoParams != ""){templateData.subText += ", " + functionStuff.autoParams};
 
 /* if the power / ability have healing effects  */
-    if(functionStuff.healFormulaSucceed){
+    if(functionStuff.healFormulaSucceed && !functionStuff.medicusExam){
         let healResult;
         if(hasSucceed){
             healResult = await healing(functionStuff.healFormulaSucceed, functionStuff.healedToken); 
@@ -3592,33 +3680,32 @@ async function unnoticeablePrepare(ability, actor) {
 
 // ********************************************* ABILITIES *****************************************************
 
-async function acrobatics(ability, actor) {
-    let fsDefault = await buildFunctionStuffDefault(ability, actor);
-let specificStuff = {
-    castingAttributeName: "quick",
-    combat: false,
-    modifier: actor.data.data.combat.impeding*-1
-}
-let functionStuff = Object.assign({}, fsDefault , specificStuff);
-await standardAbilityActivation(functionStuff)
-}
-
-async function alchemy(ability, actor) {
-    let fsDefault = await buildFunctionStuffDefault(ability, actor);
+async function simpleRollAbility(ability, actor) {
     let specificStuff = {
-        castingAttributeName: "cunning",
-        combat: false
+        castingAttributeName: "cunning"
     }
-    let functionStuff = Object.assign({}, fsDefault , specificStuff);
-    await standardAbilityActivation(functionStuff)
-}
-
-async function beastlore(ability, actor) {
+    switch (ability.data.data.reference){
+        case "acrobatics":
+            specificStuff.castingAttributeName = "quick";
+            specificStuff.impeding = actor.data.data.combat.impeding;
+        break;
+        case "loremaster":
+            specificStuff.introText = actor.data.name + game.i18n.localize('ABILITY_LOREMASTER.CHAT_INTRO');
+            specificStuff.resultTextSuccess = actor.data.name + game.i18n.localize('ABILITY_LOREMASTER.CHAT_SUCCESS');
+            specificStuff.resultTextFail = actor.data.name + game.i18n.localize('ABILITY_LOREMASTER.CHAT_FAILURE');
+        break;
+        case "quickdraw":
+            specificStuff.castingAttributeName = "quick";
+            specificStuff.impeding = actor.data.data.combat.impeding;
+        break;
+        case "shapeshifter":
+            specificStuff.castingAttributeName = "resolute";
+        break;
+        case "wisdomages":
+            specificStuff.castingAttributeName = "resolute";
+        break;
+    }
     let fsDefault = await buildFunctionStuffDefault(ability, actor);
-    let specificStuff = {
-        castingAttributeName: "cunning",
-        combat: false
-    }
     let functionStuff = Object.assign({}, fsDefault , specificStuff);
     await standardAbilityActivation(functionStuff)
 }
@@ -3708,112 +3795,37 @@ async function leaderPrepare(ability, actor) {
     await standardPowerResult(null, functionStuff)
 }
 
-async function loremaster(ability, actor) {
-    
-    let targetData = {hasTarget : false, leaderTarget: false};
-    let powerLvl = getPowerLevel(ability);
-    const attribute = actor.data.data.attributes["cunning"];
-    let rollData = [];
-    rollData.push(await baseRoll(actor, "cunning", null, null, 0, 0));
-
-    let templateData = {
-        targetData : targetData,
-        hasTarget : targetData.hasTarget,
-        introText: actor.data.name + game.i18n.localize('ABILITY_LOREMASTER.CHAT_INTRO'),
-        introImg: actor.data.img,
-        targetText: "",
-        subText: ability.name + ", " + powerLvl.lvlName,
-        subImg: ability.img,
-        hasRoll: true,
-        rollString: `${game.i18n.localize(attribute.label)} : (${rollData[0].actingAttributeValue})`,
-        rollResult : formatRollResult(rollData),
-        resultText: actor.data.name + game.i18n.localize('ABILITY_LOREMASTER.CHAT_SUCCESS'),
-        finalText: ""
-    }; 
-    if(!rollData[0].hasSucceed){templateData.resultText = actor.data.name + game.i18n.localize('ABILITY_LOREMASTER.CHAT_FAILURE')};
-
-    const html = await renderTemplate("systems/symbaroum/template/chat/ability.html", templateData);
-    const chatData = {
-        user: game.user.id,
-        content: html
-    }
-    ChatMessage.create(chatData);
-}
-
-async function medicus(ability, actor) {
+async function medicusPrepare(ability, actor) {
     let fsDefault = await buildFunctionStuffDefault(ability, actor);
     let specificStuff = {
         castingAttributeName: "cunning",
         combat: false,
-        targetMandatory: true,
         checkMaintain: false,
-        herbalCure: false,
-        introText: actor.data.name + game.i18n.localize('ABILITY_MEDICUS.CHAT_INTRO'),
-        resultTextFail: game.i18n.localize('ABILITY_MEDICUS.CHAT_FAILURE'),
-        resultTextSuccess: actor.data.name + game.i18n.localize('ABILITY_MEDICUS.CHAT_SUCCESS')
+        medicus: true
     }
-    
     specificStuff.healFormulaSucceed = "1d4";
-    specificStuff.removeTargetEffect = ["icons/svg/blood.svg"]
 
     let functionStuff = Object.assign({}, fsDefault , specificStuff);
 
     try{functionStuff.targetData = getTarget()} catch(error){
-        ui.notifications.error(error);
-        return;
     }
-    functionStuff.healedToken = functionStuff.targetData.token;
-    functionStuff.targetText = game.i18n.localize('ABILITY_MEDICUS.CHAT_TARGET') + functionStuff.targetData.token.data.name;
-
-    let hCureDialogTemplate = `
-    <h1> ${game.i18n.localize('ABILITY_MEDICUS.DIALOG')} </h1>
-    `;
-    functionStuff.subText = functionStuff.ability.name + " (" + functionStuff.powerLvl.lvlName + ")";
-    new Dialog({
-        title: game.i18n.localize('ABILITY_MEDICUS.HERBALCURE'), 
-        content: hCureDialogTemplate,
-        buttons: {
-            chooseRem: {
-                label: game.i18n.localize('ABILITY_MEDICUS.HERBALCURE'),
-                callback: (html) => {                 
-                    functionStuff.herbalCure = true;
-                    functionStuff.subText += ", " + game.i18n.localize('ABILITY_MEDICUS.HERBALCURE');
-                    if(functionStuff.powerLvl.level == 1){
-                        functionStuff.healFormulaSucceed = "1d6"
-                    }
-                    else if(functionStuff.powerLvl.level == 2){
-                        functionStuff.healFormulaSucceed = "1d8"
-                    }
-                    else{
-                        functionStuff.healFormulaSucceed = "1d10";
-                        functionStuff.healFormulaFailed = "1d6";
-                    }
-                    modifierDialog(functionStuff);
-                }
-            }, 
-
-            chooseNotRem: {
-                label: game.i18n.localize('ABILITY_MEDICUS.NOHERBALCURE'), 
-                callback: (html) => {
-                    functionStuff.subText += ", " + game.i18n.localize('ABILITY_MEDICUS.NOHERBALCURE');
-                    if(functionStuff.powerLvl.level == 1){
-                        functionStuff.healFormulaSucceed = "1d4"
-                    }
-                    else if(functionStuff.powerLvl.level == 2){
-                        functionStuff.healFormulaSucceed = "1d6"
-                    }
-                    else{
-                        functionStuff.healFormulaSucceed = "1d8";
-                        functionStuff.healFormulaFailed = "1d4";
-                    }
-                    modifierDialog(functionStuff);
-                }
-            },
-            close: {
-                label: "Close"
-            }
+    if(functionStuff.targetData.hasTarget){
+        functionStuff.healedToken = functionStuff.targetData.token;
+        functionStuff.targetText = game.i18n.localize('ABILITY_MEDICUS.CHAT_TARGET') + functionStuff.targetData.token.data.name;
+        functionStuff.subText = functionStuff.ability.name + " (" + functionStuff.powerLvl.lvlName + ")";
+        if(functionStuff.powerLvl.level == 1){
+            functionStuff.healFormulaSucceed = "1d4"
         }
-    }).render(true);
+        else if(functionStuff.powerLvl.level == 2){
+            functionStuff.healFormulaSucceed = "1d6"
+        }
+        else{
+            functionStuff.healFormulaSucceed = "1d8";
+            functionStuff.healFormulaFailed = "1d4";
+        }
+    }
+    else functionStuff.medicusExam = true;
+    modifierDialog(functionStuff);
 }
 
 async function recoveryPrepare(ability, actor) {
