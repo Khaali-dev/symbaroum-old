@@ -98,6 +98,7 @@ export class SymbaroumItem extends Item {
 
         if (data.isRitual) {
             data.data.actions = "Ritual";
+            expCost = 7;
         }
         else if (data.isBurden) {
             data.data.actions = "Burden";
@@ -107,7 +108,7 @@ export class SymbaroumItem extends Item {
             data.data.actions = "Boon";
             progCost = 5 * data.data.level;
 //            expCost = 5 * data.data.level;
-        } else if (data.isPower) {
+        } else if (data.isPower && (data.data.reference != "ritualist")) {
 			
             let novice = "-";
             let adept = "-";
