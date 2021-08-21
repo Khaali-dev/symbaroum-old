@@ -165,14 +165,17 @@ export class SymbaroumItem extends Item {
 
         if (system.isRitual) {
             system.actions = "Ritual";
+            expCost = 7;
         }
         else if (system.isBurden) {
             system.actions = "Burden";
             progCost = -5 * system.level;
+//            expCost = -5 * system.level;
         } else if (system.isBoon) {
             system.actions = "Boon";
             progCost = 5 * system.level;
-        } else if (system.isPower) {
+//            expCost = 5 * system.level;
+        } else if ((system.isPower)  && (system.reference != "ritualist")){
 			
             let novice = "-";
             let adept = "-";
