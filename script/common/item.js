@@ -931,6 +931,14 @@ function getEffect(token, effect){
     }
 }
 
+function checkPainEffect(functionStuff, damage){
+    if(functionStuff.targetData.actor.data.data.health.toughness.threshold && (damage.roll.total > functionStuff.targetData.actor.data.data.health.toughness.threshold))
+    {
+        return(true);
+    }
+    return(false);
+}
+
 /*usualy called by any prepareAbility function, or the combat function
 will send to screen a windows asking for modifiers for the roll, then roll, then call the abilityResult function (sent as a parameter)
    * @param {item} ability      The base (active or reactive) ability power or trait for the roll.
@@ -1558,7 +1566,7 @@ async function attackResult(rollData, functionStuff){
             hasDamage = true;
             rollDataElement.hasDamage = true;
             damage = await damageRollWithDiceParams(functionStuff, rollDataElement.critSuccess, attackNumber);
-            if(damage.roll.total > functionStuff.targetData.actor.data.data.health.toughness.threshold){pain = true}
+            pain = checkPainEffect(functionStuff, damage);
             rollDataElement.dmgFormula = game.i18n.localize('WEAPON.DAMAGE') + ": " + damage.roll._formula;
             rollDataElement.damageTooltip = new Handlebars.SafeString(await damage.roll.getTooltip());
             damageRollMod = game.i18n.localize('COMBAT.CHAT_DMG_PARAMS') + damage.autoParams;
@@ -2125,7 +2133,7 @@ async function brimstoneCascadeResult(rollData, functionStuff){
     let damage = await simpleDamageRoll(functionStuff, damageDice);
     let damageTooltip = new Handlebars.SafeString(await damage.roll.getTooltip());
     damageTot = damage.roll.total;
-    if(damage.roll.total > functionStuff.targetData.actor.data.data.health.toughness.threshold){pain = true}
+    pain = checkPainEffect(functionStuff, damage);
     damageRollResult += await formatRollResult([damage]);
     let dmgFormula = game.i18n.localize('WEAPON.DAMAGE') + ": " + damage.roll._formula;
 
@@ -2287,7 +2295,7 @@ async function blackBoltResult(rollData, functionStuff){
         let damageDice = "1d6";
         let damage = await simpleDamageRoll(functionStuff, damageDice);
         damageTot = damage.roll.total;
-        if(damage.roll.total > functionStuff.targetData.actor.data.data.health.toughness.threshold){pain = true}
+        pain = checkPainEffect(functionStuff, damage);
         damageRollResult += await formatRollResult([damage]);
         dmgFormula = game.i18n.localize('WEAPON.DAMAGE') + ": " + damage.roll._formula;
         damageTooltip = new Handlebars.SafeString(await damage.roll.getTooltip());
@@ -3313,7 +3321,7 @@ async function mindthrowResult(rollData, functionStuff){
             let damageDice = "1d8";
             let damage = await simpleDamageRoll(functionStuff, damageDice);
             damageTot = damage.roll.total;
-            if(damage.roll.total > functionStuff.targetData.actor.data.data.health.toughness.threshold){pain = true}
+            pain = checkPainEffect(functionStuff, damage);
             damageRollResult += await formatRollResult([damage]);
             dmgFormula = game.i18n.localize('WEAPON.DAMAGE') + ": " + damage.roll._formula;
             damageTooltip = new Handlebars.SafeString(await damage.roll.getTooltip());
@@ -3457,7 +3465,7 @@ async function priosburningglassResult(rollData, functionStuff){
         }
         let damage = await simpleDamageRoll(functionStuff, damageDice);
         damageTot = damage.roll.total;
-        if(damage.roll.total > functionStuff.targetData.actor.data.data.health.toughness.threshold){pain = true}
+        pain = checkPainEffect(functionStuff, damage);
         damageRollResult += await formatRollResult([damage]);
         dmgFormula = game.i18n.localize('WEAPON.DAMAGE') + ": " + damage.roll._formula;
         damageTooltip = new Handlebars.SafeString(await damage.roll.getTooltip());
@@ -3932,7 +3940,7 @@ async function stranglerResult(rollData, functionStuff){
         functionStuff.dmgData.ignoreArm=true;
         damage = await simpleDamageRoll(functionStuff, "1d6");
         damageTot = damage.roll.total;
-        if(damage.roll.total > functionStuff.targetData.actor.data.data.health.toughness.threshold){pain = true}
+        pain = checkPainEffect(functionStuff, damage);
         damageRollResult += await formatRollResult([damage]);
         dmgFormula = game.i18n.localize('WEAPON.DAMAGE') + ": " + damage.roll._formula;
         damageTooltip = new Handlebars.SafeString(await damage.roll.getTooltip());
