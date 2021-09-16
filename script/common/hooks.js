@@ -16,6 +16,7 @@ import { initializeHandlebars } from './handlebars.js';
 import { migrateWorld } from './migration.js';
 import { sendDevMessage } from './devmsg.js';
 import { SYMBAROUM } from './config.js';
+import { MonsterSheet } from '../sheet/monster.js';
 
 Hooks.once('init', () => {
   CONFIG.Actor.documentClass = SymbaroumActor;
@@ -23,7 +24,8 @@ Hooks.once('init', () => {
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('symbaroum', PlayerSheet2, { types: ['player'], makeDefault: true });
   Actors.registerSheet('symbaroum', PlayerSheet, { types: ['player'], makeDefault: false });
-  Actors.registerSheet('symbaroum', PlayerSheet2, { types: ['monster'], makeDefault: true });
+  Actors.registerSheet('symbaroum', MonsterSheet, { types: ['monster'], makeDefault: true });
+  Actors.registerSheet('symbaroum', PlayerSheet2, { types: ['monster'], makeDefault: false });
   Items.unregisterSheet('core', ItemSheet);
   Items.registerSheet('symbaroum', TraitSheet, { types: ['trait'], makeDefault: true });
   Items.registerSheet('symbaroum', AbilitySheet, { types: ['ability'], makeDefault: true });
@@ -148,6 +150,14 @@ Hooks.once('init', () => {
     default: false,
     config: true,
   });
+  game.settings.register('symbaroum', 'showNpcModifiers', {
+    name: 'SYMBAROUM.OPTIONAL_NPC_MODIFIERS',
+    hint: 'SYMBAROUM.OPTIONAL_NPC_MODIFIERS_HINT',
+    scope: 'world',
+    type: Boolean,
+    default: false,
+    config: true,
+  });  
   game.settings.register('symbaroum', 'allowShowReference', {
     name: 'SYMBAROUM.OPTIONAL_SHOWREFERENCE',
     hint: 'SYMBAROUM.OPTIONAL_SHOWREFERENCE_HINT',
@@ -240,7 +250,7 @@ Hooks.on('preCreateChatMessage', (doc, message, options, userid) => {
 Hooks.on('renderChatMessage', async (chatItem, html, data) => {
 
   const flagDataArray = await chatItem.getFlag(game.system.id, 'abilityRoll');
-  if (flagDataArray) {
+  if (flagDataArray && game.user.isGM) {
     await html.find('#applyEffect').click(async () => {
       for (let flagData of flagDataArray) {
         if (flagData.tokenId) {
