@@ -123,11 +123,13 @@ export class SymbaroumItem extends Item {
             }
             if (data.data.adept.isActive) {
               adept = data.data.adept.action;
-              expCost += 20;
+              expCost += 15;
+//              expCost += 20;
             }
             if (data.data.master.isActive) {
               master = data.data.master.action;
-              expCost += 30;
+              expCost += 20;
+//              expCost += 30;
             }
             data.data.actions = `${novice}/${adept}/${master}`;
         }
