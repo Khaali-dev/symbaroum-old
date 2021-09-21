@@ -12,8 +12,8 @@
     <p>
         This guide presents the main features of the Symbaroum system for Foundry VTT.
         <br>
-        This system is unofficial, so there are no art or text from the rulebooks included.
-        It is assumed that the people using this system for Foundry VTT are in possession of the rulebooks.
+        This system is official but completely developed, maintained and supported by volunteers. <br/>
+        It is assumed that the people using this system for Foundry VTT are in possession of the Symbaroum rulebooks or purchased the Free League foundry modules.
     </p>
     <br>
 
@@ -32,9 +32,11 @@
         Underneath it has a set of tabs, main, gear, bio, etc. which can be used to supply the various information required.
         <br>
         On the main tab, the player can fill in their details of their attributes, how much toughness they have remaining and details of their corruption.
-		In order to modify attributes, click on the "modify" button under the attributes label. this will open the attributes windows. 
+		In order to modify attributes, click on the cog-wheel on the header and this will open the attributes windows. 
 	</p>
-		&nbsp;<span class="img27">&nbsp;</span>&nbsp;
+		&nbsp;<span class="img01-01">&nbsp;</span>&nbsp;
+        <br/>
+        &nbsp;<span class="img27">&nbsp;</span>&nbsp;
 	<p>
 	The base attribute is for the base, unmodifed attribute of the character. The "Modifier" field is for temporary modifiers, like attribute damage from undead creatures. "Bonus" is for bonuses from items. "Total" will display the computed attribute.
         <br>
@@ -62,7 +64,7 @@
         <br>
         &nbsp;<span class="img03">&nbsp;</span>&nbsp;
         <br>
-        The character sheet also shows a summary with a clickable icon, the name of the ability and what actions (Active, Passive, etc) the player can use with the ability or trait.
+        The character sheet also shows a summary with a clickable icon, the name of the ability and what actions (Active, Passive, etc) the player can use with the ability or trait. If the icon of the trait has a green border when hovered over, the ability or trait can be activated by just clicking.
         <br>
         &nbsp;<span class="img04">&nbsp;</span>&nbsp;
     </p>
@@ -125,9 +127,12 @@
     </p>
 		&nbsp;<span class="img24">&nbsp;</span>&nbsp;
 	<p>
-        Active weapons, and the active armor, can be seen in the main tab of the character sheet. Click on them to make a roll (cf the combat section).
+        Active weapons, and the active armor, can be seen in the main tab of the character sheet. Click on them to make a roll (cf the combat section).  Armor and weapons displays their protection or damage as well as what attribute is used and the target value.
         Only one non-stackable armor will be considered active at a time. If there is no active armor, the system will generate a "no armor" dummy armor, equipped by the character, with passive bonuses added (robust..).
 		When a stackable armor is activated, it will add its bonus protection to the active armor.
+    </p>
+    <p>
+        The combat tab also shows which attribute it uses for initiative, where the format is [primary inititive attribute].[vigilant] - where the primary attribute is quick, unless you have an ability or trait that changes that.
 	</p>
 		&nbsp;<span class="img25">&nbsp;</span>&nbsp;
     <br><br>
@@ -184,14 +189,14 @@
     &nbsp;<span class="img09">&nbsp;</span>&nbsp;
 
     <p>
-        All the Abilities, Mystical Powers and Traits are available in the system compendiums.
+        All the Abilities, Mystical Powers and Traits are available in the system compendiums, but comes without descriptions. 
+        If you want the descriptions, then you can fill them in manually or purchase one of the Free League modules for the Symbaroum system. 
         In order to add one of them to a character or monster sheet, simply drag and drop it from the compendium to the sheet.
         Then you can indicated the levels know by this character by checking the "learned" box in the Novice, adept and master tab.
         <br>
         &nbsp;<span class="img10">&nbsp;</span>&nbsp;
         <br>
-        You can create your own abilities but in order to use the features of the system, you'll have to use the Abilities, powers and traits included in the compendiums.&nbsp;
-        This system in unofficial, so we can't include the descriptions of those abilities.
+        You can create your own abilities but in order to use the features of the system, you'll have to use the Abilities, powers and traits included in the compendiums.&nbsp;        
     </p>
     <br><br>
 
@@ -224,21 +229,21 @@
 
     <h1>Using Powers</span></h1>
     <p>
-        Powers can be activated by clicking on the orange dice of the item sheet.
+        Powers can be activated by clicking on the icon with a green border on the character sheet (see <i>Adding Abilities, Traits, Boons and Burdens</i>), or opening the power and clicking on the orange dice of the item sheet (shown below).
         <br>
         &nbsp;<span class="img11">&nbsp;</span>&nbsp;
         <br>
         Power activation is a WIP. <br>
         For now, only those active powers are supported: <br>
-        Anathema,&nbsp;blessed shield, brimstone cascade,&nbsp;bend will,&nbsp;black bolt,&nbsp;confusion,&nbsp;curse,&nbsp;entangling vines,&nbsp;holy aura,&nbsp;inherit wound,&nbsp;larvae boils,&nbsp;lay on hands,&nbsp;levitate,&nbsp;maltransformation,&nbsp;Prios burning glass,&nbsp;tormenting spirits,&nbsp;unnoticeable
+        Anathema,&nbsp;blessed shield, brimstone cascade,&nbsp;bend will,&nbsp;black bolt,&nbsp;confusion,&nbsp;curse,&nbsp;dancing weapon,&nbsp;entangling vines,&nbsp;holy aura,&nbsp;inherit wound,&nbsp;larvae boils,&nbsp;lay on hands,&nbsp;levitate,&nbsp;maltransformation,&nbsp;Prios burning glass,&nbsp;tormenting spirits,&nbsp;unnoticeable
         <br>
         the abilities:
         <br>
-        Alchemy, acrobatics, berserker,&nbsp;dominate,&nbsp;leader,&nbsp;loremaster,&nbsp;medicus,&nbsp;quickdraw,&nbsp;recovery,&nbsp;witchsight.
+        Alchemy,&nbsp;acrobatics,&nbsp;berserker,&nbsp;dominate,&nbsp;leader,&nbsp;loremaster,&nbsp;medicus,&nbsp;poisoner,&nbsp;quickdraw,&nbsp;recovery,&nbsp;witchsight.
         <br>
         the traits:
         <br>
-        Regeneration,&nbsp;Shapeshifter,&nbsp;Wisdom of the ages.
+        Poisonous,&nbsp;Regeneration,&nbsp;Shapeshifter,&nbsp;Wisdom of the ages.
         <br><br>
         When you activate a power, it will take in account the relevant abilities of the character and its target (leader ability, rapid reflexes, steadfast, traditions, impeding armour...).
         It will open a dialog window for the acting player asking a few questions:
@@ -396,6 +401,76 @@
         <br>
         &nbsp;<span class="img13">&nbsp;</span>&nbsp;
         <br>
+    </p>
+    <h1>System settings</h1>    
+    <p>
+        The following system settings exist - you can turn on and of to your hearts content or as you see fit for running your campaign.
+        <br>
+        <b>Configure Symbaroum System</b><br>
+        This is a user setting which allows some modification of sheet backgrounds and colorations. <br>
+        <b>World Template Version</b><br>
+        This is a developer function - do not change unless you really intend it. </br>
+        <b>World System Version</b><br>
+        This is a developer function - do not change unless you really intend it. </br>
+        <b>Combat Enhancement</b><br>
+        Turns the automated combat enhancement on or off. Please note that if you turn it on, the game will work a bit differently and players no longer rolls defense </br>
+        <b>Always able to succeed or fail</b><br>
+        If you want the system to always succeed on a roll of 1 or fail on a roll of 20</br>
+        <b>Optional Critical Rolls</b><br>
+        Enables the normal critical rolls as detailed in the optional rule in the core book. </br>
+        <b>Optional Rare Critical Rolls</b><br>
+        Enables the more rarer criticals as detailed in the optional rule in the core book. </br>
+        <b>Allow crits for non-combat</b><br>
+        This enables the system to print a message when there is a critical success or failure with normal attribute rolls. Crit ratio is the same as for combat</br>
+        <b>Combat settings for rolls</b><br>
+        Enables QoL enhancements for keeping modifiers between strikes</br>
+        <b>Attribute settings for rolls</b><br>
+        Enables QoL enhancements for keeping modifiers between specific attribute rolls</br>
+        <b>Show modifiers in targetted</b><br>
+        In attribute rolls, or combat rolls, shows the modifier the versus attribute gives</br>
+        <b>Show NPC modifiers</b><br>
+        Shows the character sheet for NPC/monster sheets as in the core book (i.e. from +5 to -5)</br>
+        <b>Allow reference modifications</b><br>
+        Only shows for GM and shows a reference field on abilities, traits, etc. This reference is used for the automation of abilities. <br>
+        <b>Supress Iniatiative  Rolls</b><br>
+        While Symbaroum do not roll for iniatiative, the system has to do so for the tie breaker.  This just turns of the visibility of this roll from chat. </br>
+        <b>Manually select iniatiative</b><br>
+        Allows manual selection of the iniatiative attribute.<br>
+        <b>Add Symbaroum Settings button</b><br>
+        This adds a Symbaroum setting button under the Foundry Configuration sidebar</br>
+
+    </p>
+    <h1>Macros</h1>
+    <p>
+        The system comes with a set of macros that might be useful at your gaming table.
+        <br/>
+        <b>Add Exp</b><br/>
+        A macro for the GameMaster to add Experience to a party. You can select tokesn, or if no tokens are selected, it gives you a list of player characters from your actor catalog.
+        <br/>
+        <b>Alternate Damage</b></br>
+        With this macro, you can deal Alternative Damage to a given token.
+        <br/>
+        <b>Name Generator</b><br/>
+        The macro will generate and publish a set of 10 Symbaroum-esque names based on the culture selected for a quick generation of names. There are x cultures available -
+        Ambrian (feminine, masculine, noble), Barbarian (feminine, masculine), Symbaroum, Abducted Human (feminine, masculine), Dwarf (firstnames, surname), Elf (feminine, masculine, Goblin (feminine, masculine),
+        Troll (normal, ancient).
+        <br/>
+        <b>NPC Importer</b><br/>
+        The macro can import NPC or Monsters from the Core book, many adventures and the Monster Codex via copy &amp; paste. All you need to do is validate abilities and put the gear on the character.  Check the text on the macro on how to use it.
+        <br/>
+        <b>Pay for re-roll</b><br/>
+        Using the alternative rules for paying for re-rolls with either experience or permanent corruption.  It will prompt the player to select the character they own, or the token they have selected.
+        Note that this macro only pays the cost for the re-roll, it does not perform another re-roll.
+        <br/>
+        <b>Reset temporary corruption</b><br/>
+        Allows the GM to reset the temporary corruption on the selected token, or if no tokens are selected, to any number of player characters in their actor catalog.
+        <br/>
+        <b>Roll attribute</b><br/>
+        Allows a player to select attribute and character to roll without opening their character sheet.
+        <br/>
+        <b>Toggle player/monster</b><br/>
+        Toggles a named player or monster in the actor catalog between being a player or monster character
+        <br/>
     </p>
 
     <br><br>

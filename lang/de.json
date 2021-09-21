@@ -254,6 +254,7 @@
   "CORRUPTION.CHAT_MAX": " turns into an abomination (max reached).",
   "CORRUPTION.CHAT_WARNING": " is close to a corruption treshold.",
 
+  "DIALOG.SYSTEM_MESSAGE":"Symbaroum system message",
   "DIALOG.AUTOPARAMS": "einbezogene Modifikatoren: ",
   "DIALOG.BACKSTAB": "Hinterhältiger Angriff?",
   "DIALOG.BEASTLORE": "Extra Schaden durch Bestienwissen?",
@@ -465,6 +466,7 @@
   "POWER_INHERITWOUND.CHAT_FAILURE": " kann die Wunden nicht transferieren.",
   "POWER_INHERITWOUND.CHAT_HEALED": " erhält Zähigkeitsheilung für: ",
   "POWER_INHERITWOUND.CHAT_DAMAGE": " erhält Schaden: ",
+  "POWER_INHERITWOUND.CHAT_REDIRECT": ";  poison and bleeding are also transfered.",
 
   "POWER_LARVAEBOILS.CHAT_INTRO": " beschwört Larven.",
   "POWER_LARVAEBOILS.CHAT_INTRO_M": " hält den Larvenfrass aufrecht.",
@@ -571,6 +573,7 @@
   "TOOLTIP.COMBAT.INITIATIVE": "Die Eigenschaft auf die deine Initiative basiert",
   "TOOLTIP.COMBAT.DEFENSE": "Die Eigenschaft auf die deine Verteidigung basiert",
 
+  "TOOLTIP.DELETE_ABILITY" : "Delete ability",
   "TOOLTIP.POWER_ACTIONS" : "Art der Aktivierung (A - Aktiv, P - Passiv, S - Speziell, etc)",
 
   "TRAIT.NAME": "Name",

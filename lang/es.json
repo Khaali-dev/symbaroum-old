@@ -277,6 +277,7 @@
   "CORRUPTION.CHAT_MAX": " turns into an abomination (max reached).",
   "CORRUPTION.CHAT_WARNING": " is close to a corruption treshold.",
 
+  "DIALOG.SYSTEM_MESSAGE":"Symbaroum system message",
   "DIALOG.AUTOPARAMS": "Modificadores incluidos: ",
   "DIALOG.BACKSTAB": "¿Usar Ataque Traicionero?",
   "DIALOG.BEASTLORE": "+BeastLore dmg?",
@@ -494,6 +495,7 @@
   "POWER_INHERITWOUND.CHAT_FAILURE": " no puede transferir las heridas.",
   "POWER_INHERITWOUND.CHAT_HEALED": " recibe una curación de su resistencia de: ",
   "POWER_INHERITWOUND.CHAT_DAMAGE": " daños recibidos: ",
+  "POWER_INHERITWOUND.CHAT_REDIRECT": ";  poison and bleeding are also transfered.",
 
   "POWER_LARVAEBOILS.CHAT_INTRO": " lanza larvas.",
   "POWER_LARVAEBOILS.CHAT_INTRO_M": " mantiene la Erupción de Larvas.",
@@ -610,6 +612,7 @@
   "TOOLTIP.COMBAT.INITIATIVE": "El atributo en el que se basa su iniciativa",
   "TOOLTIP.COMBAT.DEFENSE": "El atributo en el que se basa su defensa",
   
+  "TOOLTIP.DELETE_ABILITY" : "Delete ability",
   "TOOLTIP.POWER_ACTIONS" : "Tipo de activación (A - activa, P - pasiva, S - especial, etc)",
 
   "TRAIT.NAME": "Nombre",
