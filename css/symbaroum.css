@@ -17,7 +17,6 @@
 .symbaroum.chat.ability .border {
   border: 1px solid transparent;
   border-color: var(--title-color);
-  border-image: var(--title-image) 20/10px;
 }
 
 .symbaroum.chat.combatstrong,
@@ -245,7 +244,6 @@
 .symbaroum.chat.item .border {
   border: 1px solid transparent;
   border-color: var(--title-color);
-  border-image: var(--title-image) 20/10px;
 }
 
 .symbaroum.chat.item strong {
@@ -1209,7 +1207,7 @@
   animation: rotation 10s infinite linear;
 }
 #pause h3 {
-  font-family: "IM Fell DW Pica SC";
+  font-family: var(--font-text);
   font-size: 32px;
   text-shadow: 0px 3px 5px black;
 }
@@ -2938,11 +2936,6 @@
   background: url(../asset/image/foreground.webp) repeat;
 }
 
-.symbaroum.attributes .border {
-  border: 10px solid transparent;
-  border-image: var(--title-image) 20/10px round;
-}
-
 .symbaroum.attributes h1 {
   width: 100%;
   height: 30px;
@@ -2951,7 +2944,7 @@
   font-size: 16px;
   margin: 0;
   text-align: center;
-  background: var(--title-image) repeat;
+  background: var(--title-color) repeat;
   color: var(--color-title);
   font-family: var(--font-text);
 }
@@ -2961,7 +2954,7 @@
   font-weight: bold;
   color: var(--color-label);
   font-family: var(--font-text);
-  background: var(--title-image) repeat;
+  background: var(--title-color) repeat;
   width: 10em;
   text-align: center;
   padding: 5px;
