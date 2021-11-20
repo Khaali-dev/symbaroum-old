@@ -4448,9 +4448,9 @@ async function witchsightPrepare(ability, actor) {
         resultTextFail: fsDefault.tokenName + game.i18n.localize('ABILITY_WITCHSIGHT.CHAT_FAILURE'),
     }
     let functionStuff = Object.assign({}, fsDefault , specificStuff);
-    if(functionStuff.powerLvl.level == 2){
+    if(functionStuff.powerLvl.level <= 2){
         functionStuff.corruptionFormula = "1d4";
-    }else if(functionStuff.powerLvl.level > 2) functionStuff.corruptionFormula = "1d6";
+    }else if(functionStuff.powerLvl.level > 2) functionStuff.corruptionFormula = "1d1";
     if(!actor.data.data.health.corruption.max) functionStuff.corruption = false;
 
     let targetData;
