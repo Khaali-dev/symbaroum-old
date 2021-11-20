@@ -4061,3 +4061,500 @@ async function preDialogLayonHands(functionStuff){
         }
     }).render(true);
 }
+
+async function levitatePrepare(ability, actor) {
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        checkMaintain: true,
+        tradition: ["theurgy", "wizardry"]
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    let targetData;
+    if(functionStuff.powerLvl.level > 1){
+        try{targetData = getTarget("strong")} catch(error){
+            targetData = {hasTarget : false, leaderTarget: false}
+        }
+    }
+    else{
+        targetData = {hasTarget : false, leaderTarget: false}
+    }
+    if(targetData.hasTarget){
+        functionStuff.addTargetEffect= ["icons/svg/wing.svg"]
+    }
+    else{
+        functionStuff.addCasterEffect= ["icons/svg/wing.svg"]
+    }
+    functionStuff.targetData = targetData;
+    await modifierDialog(functionStuff)
+}
+
+async function maltransformationPrepare(ability, actor) {
+    let targetData;
+    try{targetData = getTarget("resolute")} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let targetResMod = checkResoluteModifiers(targetData.actor, targetData.autoParams);
+    targetData.resistAttributeName = targetResMod.bestAttributeName;
+    targetData.resistAttributeValue = targetResMod.bestAttributeValue;
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        checkMaintain: true,
+        favour: favour,
+        targetMandatory : true,
+        targetData: targetData,
+        activelyMaintaninedTargetEffect: ["systems/symbaroum/asset/image/frog.png"],
+        tradition: ["witchcraft"]
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    await modifierDialog(functionStuff)
+}
+
+async function mindthrowPrepare(ability, actor) {
+    // get target
+    let targetData;
+    try{targetData = getTarget("quick")} catch(error){
+        targetData = {hasTarget : false, leaderTarget: false}
+    }
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        contextualDamage: true,
+        hasDamage: targetData.hasTarget,
+        damageDice: "1d8",
+        tradition: ["wizardry"],
+        targetData: targetData,
+        targetImpeding: targetData.hasTarget ? targetData.actor.data.data.combat.impedingMov : null,
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    if(functionStuff.powerLvl.level>2){
+        functionStuff.checkMaintain=true
+    }
+    await modifierDialog(functionStuff)
+}
+
+async function priosburningglassPrepare(ability, actor) {
+    // get target
+    let targetData;
+    try{targetData = getTarget()} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        checkMaintain: true,
+        askCorruptedTarget: true,
+        notResisted: true,
+        introText: fsDefault.tokenName + game.i18n.localize('POWER_PRIOSBURNINGGLASS.CHAT_INTRO'),
+        tradition: ["theurgy"],
+        targetData: targetData,
+        contextualDamage: true,
+        hasDamage: true
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    await modifierDialog(functionStuff)
+}
+
+async function tormentingspiritsPrepare(ability, actor) { 
+    let targetData;
+    try{targetData = getTarget()} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        notResisted: true,
+        isAlternativeDamage: true,
+        alternativeDamageAttribute: "resolute",
+        targetMandatory: true,
+        checkMaintain: true,
+        targetData: targetData,
+        tradition: ["witchcraft"],
+        introText: fsDefault.tokenName + game.i18n.localize('POWER_TORMENTINGSPIRITS.CHAT_INTRO'),
+        introTextMaintain: fsDefault.tokenName + game.i18n.localize('POWER_TORMENTINGSPIRITS.CHAT_INTRO_M'),
+        resultTextSuccess: fsDefault.tokenName + game.i18n.localize('POWER_TORMENTINGSPIRITS.CHAT_SUCCESS') + targetData.name,
+        resultTextFail: fsDefault.tokenName + game.i18n.localize('POWER_TORMENTINGSPIRITS.CHAT_FAILURE'),
+        activelyMaintaninedTargetEffect: ["systems/symbaroum/asset/image/ghost.svg"],
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+
+    if(functionStuff.powerLvl.level >1){
+        functionStuff.hasDamage= true;
+        functionStuff.contextualDamage= true;
+        functionStuff.damageDice= "1d"+(2*functionStuff.powerLvl.level).toString();
+        functionStuff.ignoreArm=true;
+    }
+    await modifierDialog(functionStuff)
+}
+
+async function unnoticeablePrepare(ability, actor) {
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        tradition: ["wizardry", "theurgy"],
+        addCasterEffect: ["systems/symbaroum/asset/image/invisible.png"]
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    await standardPowerActivation(functionStuff);
+}
+
+// ********************************************* ABILITIES *****************************************************
+
+async function simpleRollAbility(ability, actor) {
+    let specificStuff = {
+        castingAttributeName: "cunning"
+    }
+    switch (ability.data.data.reference){
+        case "acrobatics":
+            specificStuff.castingAttributeName = "quick";
+            specificStuff.impeding = actor.data.data.combat.impedingMov;
+        break;
+        case "loremaster":
+            specificStuff.introText = actor.data.name + game.i18n.localize('ABILITY_LOREMASTER.CHAT_INTRO');
+            specificStuff.resultTextSuccess = actor.data.name + game.i18n.localize('ABILITY_LOREMASTER.CHAT_SUCCESS');
+            specificStuff.resultTextFail = actor.data.name + game.i18n.localize('ABILITY_LOREMASTER.CHAT_FAILURE');
+        break;
+        case "quickdraw":
+            specificStuff.castingAttributeName = "quick";
+            specificStuff.impeding = actor.data.data.combat.impedingMov;
+        break;
+        case "shapeshifter":
+            specificStuff.castingAttributeName = "resolute";
+        break;
+        case "wisdomages":
+            specificStuff.castingAttributeName = "resolute";
+        break;
+    }
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    await standardAbilityActivation(functionStuff)
+}
+
+async function berserker(ability, actor) {
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        isMaintained: false
+    };
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+
+    if(!functionStuff.attackFromPC){
+        functionStuff.gmOnlyChatResult = true
+    }
+    let flagData = await actor.getFlag(game.system.id, 'berserker');
+    if(flagData){
+        await actor.unsetFlag(game.system.id, 'berserker');
+        functionStuff.introText = actor.name + game.i18n.localize('ABILITY_BERSERKER.CHAT_DESACTIVATE');
+        functionStuff.resultTextSuccess = game.i18n.localize('ABILITY_BERSERKER.CHAT_RESULT_DESACTIVATE');
+        functionStuff.removeCasterEffect= ["systems/symbaroum/asset/image/berserker.svg"]
+    }
+    else{
+        flagData = functionStuff.powerLvl.level;
+        functionStuff.introText = actor.name + game.i18n.localize('ABILITY_BERSERKER.CHAT_ACTIVATE');
+        await actor.setFlag(game.system.id, 'berserker', flagData);
+        functionStuff.addCasterEffect = ["systems/symbaroum/asset/image/berserker.svg"];
+        if(functionStuff.powerLvl.level == 2) functionStuff.resultTextSuccess = game.i18n.localize('ABILITY_BERSERKER.CHAT_RESULT_LVL2');
+        else if(functionStuff.powerLvl.level > 2) functionStuff.resultTextSuccess = game.i18n.localize('ABILITY_BERSERKER.CHAT_RESULT_LVL3');
+        else functionStuff.resultTextSuccess = game.i18n.localize('ABILITY_BERSERKER.CHAT_RESULT_LVL1');
+    }
+    await standardPowerResult(null, functionStuff);
+}
+
+async function dominatePrepare(ability, actor) {
+    let powerLvl = getPowerLevel(ability);
+    if (powerLvl.level<2){
+        ui.notifications.error("Need dominate Adept level");
+        return;
+    }
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        castingAttributeName: "persuasive",
+        targetMandatory: true,
+        targetResistAttribute: "resolute",
+        addTargetEffect: ["icons/svg/terror.svg"],
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    functionStuff.targetData = {hasTarget : true, leaderTarget: false}
+    if(powerLvl.level == 2){
+        functionStuff.introText = functionStuff.actor.data.name + game.i18n.localize('ABILITY_DOMINATE_ADEPT.CHAT_INTRO');
+        functionStuff.resultTextSuccess = functionStuff.actor.data.name + game.i18n.localize('ABILITY_DOMINATE_ADEPT.CHAT_SUCCESS');
+    }
+    else{
+        functionStuff.introText = functionStuff.actor.data.name + game.i18n.localize('ABILITY_DOMINATE_MASTER.CHAT_INTRO');
+        functionStuff.resultTextSuccess = functionStuff.actor.data.name + game.i18n.localize('ABILITY_DOMINATE_MASTER.CHAT_SUCCESS');
+    }
+    await standardPowerActivation(functionStuff)
+}
+
+async function leaderPrepare(ability, actor) {
+
+    let powerLvl = getPowerLevel(ability);
+    if (powerLvl.level<2){
+        ui.notifications.error("Need Leader Adept level");
+        return;
+    }
+    let targetData;
+    try{targetData = getTarget()} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        targetMandatory: true,
+        targetData: targetData,
+        resultTextSuccess: game.i18n.localize('ABILITY_LEADER.CHAT_SUCCESS') + targetData.name,
+        addTargetEffect: ["icons/svg/eye.svg"],
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    await standardPowerResult(null, functionStuff)
+}
+
+async function medicusPrepare(ability, actor) {
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        castingAttributeName: "cunning",
+        checkMaintain: false,
+        notResisted: true,
+        medicus: true
+    }
+    specificStuff.healFormulaSucceed = "1d4";
+
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+
+    try{functionStuff.targetData = getTarget()} catch(error){
+    }
+    if(functionStuff.targetData.hasTarget){
+        functionStuff.healedToken = functionStuff.targetData.token;
+        functionStuff.targetData.targetText = game.i18n.localize('ABILITY_MEDICUS.CHAT_TARGET') + functionStuff.targetData.name;
+        functionStuff.subText = functionStuff.ability.name + " (" + functionStuff.powerLvl.lvlName + ")";
+        if(functionStuff.powerLvl.level == 1){
+            functionStuff.healFormulaSucceed = "1d4"
+        }
+        else if(functionStuff.powerLvl.level == 2){
+            functionStuff.healFormulaSucceed = "1d6"
+        }
+        else{
+            functionStuff.healFormulaSucceed = "1d8";
+            functionStuff.healFormulaFailed = "1d4";
+        }
+    }
+    else functionStuff.medicusExam = true;
+    modifierDialog(functionStuff);
+}
+
+async function recoveryPrepare(ability, actor) {
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        castingAttributeName: "resolute"
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    functionStuff.healedToken = functionStuff.token;
+
+    if(functionStuff.powerLvl.level == 2) {functionStuff.healFormulaSucceed = "1d6"}
+    else if(functionStuff.powerLvl.level == 3) {functionStuff.healFormulaSucceed = "1d8"}
+    else {functionStuff.healFormulaSucceed = "1d4"}
+    await standardAbilityActivation(functionStuff)
+}
+
+async function stranglerPrepare(ability, actor) {
+
+    let stranglerDialogTemplate = `
+    <h1> ${game.i18n.localize('DIALOG.ISMAINTAINED')} </h1>
+    `;
+    new Dialog({
+        title: ability.name, 
+        content: stranglerDialogTemplate,
+        buttons: {
+            firstAttack: {
+                label: game.i18n.localize('DIALOG.CASTING'),
+                callback: (html) => {                 
+                    stranglerPrepared(ability, actor, false);
+                }
+            }, 
+
+            maintained: {
+                label: game.i18n.localize('DIALOG.MAINTAINING'), 
+                callback: (html) => {
+                    stranglerPrepared(ability, actor, true);
+                }
+            },
+            close: {
+                label: "Close"
+            }
+        }
+    }).render(true);
+}
+
+async function stranglerPrepared(ability, actor, maintained) {
+    let targetData;
+    if(maintained){
+        try{targetData = getTarget("cunning")} catch(error){      
+            ui.notifications.error(error);
+            return;
+        }
+    }
+    else{
+        try{targetData = getTarget("defense")} catch(error){      
+            ui.notifications.error(error);
+            return;
+        }
+    }
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        checkMaintain: false,
+        contextualDamage: true,
+        isMaintained: maintained,
+        introText: fsDefault.tokenName + game.i18n.localize('ABILITY_STRANGLER.CHAT_INTRO'),
+        introTextMaintain: fsDefault.tokenName + game.i18n.localize('ABILITY_STRANGLER.CHAT_INTRO_M'),
+        resultTextSuccess: fsDefault.tokenName + game.i18n.localize('ABILITY_STRANGLER.CHAT_SUCCESS'),
+        resultTextFail: targetData.name + game.i18n.localize('ABILITY_STRANGLER.CHAT_FAILURE'),
+        targetData: targetData,
+        activelyMaintaninedTargetEffect: ["systems/symbaroum/asset/image/lasso.png"],
+        hasDamage: true,
+        damageDice: "1d6"
+    }
+    specificStuff.askCastingAttribute = maintained ? false : true;
+    specificStuff.castingAttributeName = maintained ? "cunning" : null;
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    functionStuff.ignoreArm=true;
+    await modifierDialog(functionStuff)
+}
+
+async function witchsightPrepare(ability, actor) {
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        castingAttributeName: "vigilant",
+        corruption: true,
+        casterMysticAbilities: await getMysticAbilities(actor),
+        corruptionFormula: "1d1",
+        introText: fsDefault.tokenName + game.i18n.localize('ABILITY_WITCHSIGHT.CHAT_INTRO'),
+        resultTextSuccess: fsDefault.tokenName + game.i18n.localize('ABILITY_WITCHSIGHT.CHAT_SUCCESS'),
+        resultTextFail: fsDefault.tokenName + game.i18n.localize('ABILITY_WITCHSIGHT.CHAT_FAILURE'),
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    if(functionStuff.powerLvl.level == 2){
+        functionStuff.corruptionFormula = "1d4";
+    }else if(functionStuff.powerLvl.level > 2) functionStuff.corruptionFormula = "1d6";
+    if(!actor.data.data.health.corruption.max) functionStuff.corruption = false;
+
+    let targetData;
+    try{targetData = getTarget("discreet")} catch(error){
+        targetData = {hasTarget : false, leaderTarget: false}
+    }
+    functionStuff.targetData = targetData;
+    await modifierDialog(functionStuff)
+}
+
+// ********************************************* TRAITS *****************************************************
+
+async function poisonerPrepare(ability, actor) {
+    // get target
+    let targetData;
+    try{targetData = getTarget("strong")} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        castingAttributeName: "cunning",
+        targetData: targetData,
+    }
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+    if(ability.data.data.reference === "poisoner") {functionStuff.poisoner = true}
+    else functionStuff.poison = functionStuff.powerLvl.level;
+    await modifierDialog(functionStuff)
+}
+
+async function regeneration(ability, actor){
+    let fsDefault;
+    try{fsDefault = await buildFunctionStuffDefault(ability, actor)} catch(error){      
+        ui.notifications.error(error);
+        return;
+    }
+    let specificStuff = {
+        isMaintained: false
+    };
+    let functionStuff = Object.assign({}, fsDefault , specificStuff);
+
+
+    functionStuff.introText = actor.name + game.i18n.localize('TRAIT_REGENERATION.CHAT_ACTION');
+    
+    let regenTotal = 0;
+
+    if(!functionStuff.attackFromPC){
+        functionStuff.gmOnlyChatResult = true;
+        regenTotal = 1+functionStuff.powerLvl.level;
+        functionStuff.introText += "("+regenTotal.toString()+" " + game.i18n.localize('HEALTH.TOUGHNESS') +").";
+    } else {
+        let regenDice = 2+ 2*functionStuff.powerLvl.level;
+        let regenFormula = "1d" + regenDice.toString();
+        let dmgRoll= new Roll(regenFormula).evaluate({async:false});
+        functionStuff.resultRolls = [dmgRoll];
+        functionStuff.introText += "("+regenFormula+" " + game.i18n.localize('HEALTH.TOUGHNESS') +").";
+        regenTotal = dmgRoll.total;
+    }
+    functionStuff.resultTextSuccess = actor.name + game.i18n.localize('TRAIT_REGENERATION.CHAT_ACTION') + regenTotal.toString() + " " + game.i18n.localize('HEALTH.TOUGHNESS') +".";;
+
+    functionStuff.flagDataArray = [{
+        tokenId: functionStuff.token.data._id,
+        toughnessChange: regenTotal
+    }];
+    await standardPowerResult(null, functionStuff);
+}
