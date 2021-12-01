@@ -117,17 +117,21 @@ export class SymbaroumItem extends Item {
 
     _computeExperienceCost(data) {
         let expCost = 0;
+        let progCost = 0;
 
         if (data.isRitual) {
             data.data.actions = "Ritual";
+            expCost = 7;
         }
         else if (data.isBurden) {
             data.data.actions = "Burden";
-            expCost = -5 * data.data.level;
+            progCost = -5 * data.data.level;
+//            expCost = -5 * data.data.level;
         } else if (data.isBoon) {
             data.data.actions = "Boon";
-            expCost = 5 * data.data.level;
-        } else if (data.isPower) {
+            progCost = 5 * data.data.level;
+//            expCost = 5 * data.data.level;
+        } else if (data.isPower && (data.data.reference != "ritualist")) {
 			
             let novice = "-";
             let adept = "-";
@@ -136,13 +140,15 @@ export class SymbaroumItem extends Item {
                 novice = data.data.novice.action;
                 expCost += 10;
             }
-            if (data.data.adept.isActive) { 
-                adept = data.data.adept.action;
-                expCost += 20;
+            if (data.data.adept.isActive) {
+              adept = data.data.adept.action;
+              expCost += 15;
+//              expCost += 20;
             }
             if (data.data.master.isActive) {
-                master = data.data.master.action;
-                expCost += 30;
+              master = data.data.master.action;
+              expCost += 20;
+//              expCost += 30;
             }
             data.data.actions = `${novice}/${adept}/${master}`;
         }
@@ -3862,3 +3868,4 @@ async function preDialogLayonHands(functionStuff){
         }
     }).render(true);
 }
+
