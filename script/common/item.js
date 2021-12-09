@@ -2609,9 +2609,10 @@ export class SymbaroumItem extends Item {
         if(base.powerLvl.level == 2){
             base.corruption = game.symbaroum.config.TEMPCORRUPTION_NORMAL;
         }else if(base.powerLvl.level > 2){
-            base.corruption = game.symbaroum.config.TEMPCORRUPTION_D6;
+            base.corruption = game.symbaroum.config.TEMPCORRUPTION_ONE;
+            base.favour = 1;
         }
-        else base.corruption = game.symbaroum.config.TEMPCORRUPTION_ONE;
+        else base.corruption = game.symbaroum.config.TEMPCORRUPTION_NORMAL;
         base.introText= game.i18n.localize('ABILITY_WITCHSIGHT.CHAT_INTRO');
         baseRoll.resultTextSuccess= game.i18n.localize('ABILITY_WITCHSIGHT.CHAT_SUCCESS');
         base.resultTextFail= game.i18n.localize('ABILITY_WITCHSIGHT.CHAT_FAILURE');
