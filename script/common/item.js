@@ -572,18 +572,7 @@ export class SymbaroumItem extends Item {
 
     // Weapons    
     _getOwnWeaponBonuses(combatMods, armors, weapons, abilities) 
-    {
-        for(let i = 0; i < armors.length; i++)
-        {
-            if(!this.data.isActive || !armors[i].data.isActive || armors[i].data.isStackableArmor ||  !this.data.data.qualities.balanced) {
-                continue;
-            }
-            // Add 1
-            let base = this._getBaseFormat();
-            base.display = game.i18n.localize("QUALITY.BALANCED");
-            base.modifier = 1;
-            combatMods.armors[armors[i].id].defenseModifiers.push(base);            
-        }        
+    {       
         for(let i = 0; i < weapons.length; i++)
         {
             if(weapons[i].id != this.id) {
@@ -661,6 +650,19 @@ export class SymbaroumItem extends Item {
                 base.value = this.data.data.alternativeDamage;
                 combatMods.weapons[weapons[i].id].package[0].member.push(base);
             }
+            if( this.data.isActive && this.data.data.qualities.balanced)
+            {
+                for(let i = 0; i < armors.length; i++)
+                {
+                    if(!this.data.isActive || !armors[i].data.isActive || armors[i].data.isStackableArmor) {
+                        continue;
+                    }
+                    let base = this._getBaseFormat();
+                    base.label = `${this.data.name} ${game.i18n.localize("QUALITY.BALANCED")}`;
+                    base.modifier = 1;
+                    combatMods.armors[armors[i].id].defenseModifiers.push(base);            
+                }
+            }
         }
     }
 
@@ -679,6 +681,25 @@ export class SymbaroumItem extends Item {
     }
     getItemModifierShield(combatMods, armors, weapons, abilities) {
         this._getOwnWeaponBonuses(combatMods, armors, weapons, abilities);
+        if(!this.data.isActive)
+        {
+            return;
+        }
+        for(let i = 0; i < weapons.length; i++)
+        {
+            if(weapons[i].id != this.id) {
+                continue;
+            }
+            for(let i = 0; i < armors.length; i++)
+            {
+                if(!armors[i].data.isActive || armors[i].data.isStackableArmor) {
+                    continue;
+                }
+                let base = this._getBaseFormat();
+                base.modifier = 1;
+                combatMods.armors[armors[i].id].defenseModifiers.push(base);            
+            }
+        }
     }
     getItemModifierHeavy(combatMods, armors, weapons, abilities) {
         this._getOwnWeaponBonuses(combatMods, armors, weapons, abilities);
@@ -1540,13 +1561,15 @@ export class SymbaroumItem extends Item {
             let base = this._getBaseFormat();
             base.normal = 0.5;
             if(lvl.level > 1) {
-                base.mystic = 0.5;
+                base.mysticArm = 0.5;
+                base.mysticIgnArm= 0.5;
                 base.elemental = 0.5;
                 base.holy = 0.5;
                 base.mysticalWeapon = 0.5;
             }
             if(lvl.level > 2) {
                 base.normal = 0;
+                base.elemental = 0;
             }
             combatMods.armors[armors[i].id].damageReductions.push(base);            
         }
@@ -1707,13 +1730,15 @@ export class SymbaroumItem extends Item {
             }
             let base = this._getBaseFormat();
             base.normal = 0.5;
-            base.mystic = 0.5;
+            base.mysticArm = 0.5;
+            base.mysticIgnArm= 0.5;
             base.elemental = 0.5;
             base.holy = 0.5;
             base.mysticalWeapon = 0.5
             if(lvl.level > 2) {
                 base.normal = 0.25;
-                base.mystic = 0.25;
+                base.mysticArm = 0.25;
+                base.mysticIgnArm= 0.25;
                 base.elemental = 0.25;
                 base.holy = 0.25;
                 base.mysticalWeapon = 0.25
@@ -1897,8 +1922,9 @@ export class SymbaroumItem extends Item {
             let base = this._getBaseFormat();
             base.normal = 0.5;
             base.elemental = 0.5;
+            base.mysticArm = 0.5;
             if(lvl.level > 2) {
-                base.mystic = 0.5;
+                base.mysticIgnArm= 0.5;
             }
             combatMods.armors[armors[i].id].damageReductions.push(base);            
         }
@@ -1970,6 +1996,9 @@ export class SymbaroumItem extends Item {
         base.hasDamage= true;
         base.damageDice = "1d12";
         base.avoidDamageDice = "1d6";
+        base.damageType = {
+            mysticArm: true
+        };
         base.getTarget= true;
         base.targetMandatory= true;
         base.targetResistAttribute="quick";
@@ -2015,6 +2044,9 @@ export class SymbaroumItem extends Item {
         base.resultTextSuccessT= game.i18n.localize('POWER_BLACKBOLT.CHAT_SUCCESS');
         base.resultTextFailT= game.i18n.localize('POWER_BLACKBOLT.CHAT_FAILURE');
         base.damageDice= "1d6";
+        base.damageType = {
+            mystic: true
+        };
         base.addTargetEffect= [CONFIG.statusEffects.find(e => e.id === "paralysis")];
         base.ignoreArm=true;
         base.maintain = game.symbaroum.config.MAINTAIN_RES;
@@ -2099,6 +2131,9 @@ export class SymbaroumItem extends Item {
         base.targetResistAttribute= "strong";
         base.hasDamage= base.powerLvl.level === 3;
         base.damageDice= "1d6";
+        base.damageType = {
+            mysticIgnArm: true
+        };
         base.introTextMaintain= game.i18n.localize('POWER_ENTANGLINGVINES.CHAT_INTRO_M');
         base.resultTextSuccess= game.i18n.localize('POWER_ENTANGLINGVINES.CHAT_SUCCESS');
         base.resultTextFail= game.i18n.localize('POWER_ENTANGLINGVINES.CHAT_FAILURE');
@@ -2145,7 +2180,9 @@ export class SymbaroumItem extends Item {
         base.resultTextSuccess= game.i18n.localize('POWER_INHERITWOUND.CHAT_SUCCESS');
         base.resultTextFail= game.i18n.localize('POWER_INHERITWOUND.CHAT_FAILURE');
         base.healFormulaSucceed = (base.powerLvl.level > 2) ? "1d8" : "1d6";
-    
+        base.damageType = {
+            mysticIgnArm: true
+        };
         base.targetText = game.i18n.localize('ABILITY_MEDICUS.CHAT_TARGET');
         return(base);
     }
@@ -2159,6 +2196,9 @@ export class SymbaroumItem extends Item {
         base.traditions = [game.symbaroum.config.TRAD_WITCHCRAFT];
         base.hasDamage= true;
         base.damageDice= "1d" + (2*base.powerLvl.level+2).toString();
+        base.damageType = {
+            mysticIgnArm: true
+        }
         base.introText= game.i18n.localize('POWER_LARVAEBOILS.CHAT_INTRO');
         base.introTextMaintain= game.i18n.localize('POWER_LARVAEBOILS.CHAT_INTRO_M');
         base.resultTextSuccess= game.i18n.localize('POWER_LARVAEBOILS.CHAT_SUCCESS');
@@ -2221,6 +2261,9 @@ export class SymbaroumItem extends Item {
             casting: game.symbaroum.config.CASTING_RES,
             damageDice: "1d8",
             targetImpeding: true,
+            damageType: {
+                mysticArm: true
+            }
         };
         if(base.powerLvl.level>2){
             base.maintain = game.symbaroum.config.MAINTAIN;
@@ -2249,6 +2292,10 @@ export class SymbaroumItem extends Item {
                 damageDice: "1d12"
             };
         }
+        base.damageType = {
+            holy: true,
+            mysticArm: true
+        }
         if(base.powerLvl.level === 3) {
             base.targetFullyCorruptedFSmod.finalTextSucceed = game.i18n.localize('POWER_PRIOSBURNINGGLASS.CHAT_EXTRA')
         }
@@ -2273,6 +2320,9 @@ export class SymbaroumItem extends Item {
             base.hasDamage= true;
             base.damageDice= "1d"+(2*base.powerLvl.level).toString();
             base.ignoreArm=true;
+            base.damageType = {
+                mysticIgnArm: true
+            }
         }
         return(base);
     }
@@ -2658,8 +2708,9 @@ export function getEffect(token, effect){
     }
 }
 
-function checkPainEffect(functionStuff, damage){
-    if(!functionStuff.isAlternativeDamage && functionStuff.targetData.actor.data.data.health.toughness.threshold && (damage.roll.total > functionStuff.targetData.actor.data.data.health.toughness.threshold))
+// check if pain (damage > toughness treshold)
+function checkPainEffect(functionStuff, damageTotal){
+    if(!functionStuff.isAlternativeDamage && functionStuff.targetData.actor.data.data.health.toughness.threshold && (damageTotal > functionStuff.targetData.actor.data.data.health.toughness.threshold))
     {
         return(true);
     }
@@ -3037,7 +3088,7 @@ export function checkSpecialResistanceMod(damageReductions, autoParams = "", abi
 }
 
 /* This function applies damage reduction (Undead trait, swarm...) to the final damage */
-async function mathDamageProt(targetActor, damage, damageType){
+async function mathDamageProt(targetActor, damage, damageType = {}){
     async function damageReductionText(value){
         if(value != 1){
             return (" (x" + value + ")")
@@ -3054,9 +3105,13 @@ async function mathDamageProt(targetActor, damage, damageType){
         finalDamage = Math.round(finalDamage*targetActor.data.data.combat.damageProt.elemental);
         infoText = await damageReductionText(targetActor.data.data.combat.damageProt.elemental)
     }
-    else if(damageType.mystical){
-        finalDamage = Math.round(finalDamage*targetActor.data.data.combat.damageProt.mystical);
-        infoText = await damageReductionText(targetActor.data.data.combat.damageProt.mystical)
+    else if(damageType.mysticArm){
+        finalDamage = Math.round(finalDamage*targetActor.data.data.combat.damageProt.mysticArm);
+        infoText = await damageReductionText(targetActor.data.data.combat.damageProt.mysticArm)
+    }
+    else if(damageType.mysticIgnArm){
+        finalDamage = Math.round(finalDamage*targetActor.data.data.combat.damageProt.mysticIgnArm);
+        infoText = await damageReductionText(targetActor.data.data.combat.damageProt.mysticIgnArm)
     }
     else if(damageType.mysticalWeapon){
         finalDamage = Math.round(finalDamage*targetActor.data.data.combat.damageProt.mysticalWeapon);
@@ -3110,12 +3165,14 @@ async function attackResult(rollData, functionStuff){
             rolls.push(damage.roll);
 
             attackNumber += 1;
-            pain = pain || checkPainEffect(functionStuff, damage);
             rollDataElement.dmgFormula = game.i18n.localize('WEAPON.DAMAGE') + ": " + damage.roll._formula;
             rollDataElement.damageTooltip = new Handlebars.SafeString(await damage.roll.getTooltip());
             damageRollMod = game.i18n.localize('COMBAT.CHAT_DMG_PARAMS') + damage.autoParams;
             hasDmgMod = (damage.autoParams.length >0) ? true : false;
+            //damage reduction (Undead trait, swarm...)
             let finalDmg = await mathDamageProt(functionStuff.targetData.actor, damage.roll.total, {mysticalWeapon: mysticalWeapon});
+            // pain (damage > toughness treshold)
+            pain = pain || checkPainEffect(functionStuff, finalDmg.damage);
             rollDataElement.dmg = finalDmg.damage;
             rollDataElement.dmgFormula += finalDmg.text;
             if(functionStuff.corruptingattack != "" && rollDataElement.dmg > 0){
@@ -3382,7 +3439,7 @@ async function poisonCalc(functionStuff, poisonRoll){
             else{poisonRes.poisonChatResult = game.i18n.localize('COMBAT.CHAT_POISON_NOTEXTEND')}
         }
         else{
-            //new poisonning  
+            //new poisoning  
             poisonRes.flagData ={
                 tokenId: functionStuff.targetData.tokenId,
                 addEffect: effect,
@@ -3549,12 +3606,18 @@ async function standardPowerResult(rollData, functionStuff){
             targetValue = getAttributeValue(functionStuff.targetData.actor, functionStuff.alternativeDamageAttribute);
         }
         let damage = await simpleDamageRoll(functionStuff, damageDice);
-        damageTot = damage.roll.total;
         rolls.push(damage.roll);
 
-        let pain = checkPainEffect(functionStuff, damage);
         damageRollResult += await formatRollResult(damage);
         dmgFormula = game.i18n.localize('WEAPON.DAMAGE') + ": " + damage.roll._formula;
+
+        //damage reduction (Undead trait, swarm...)
+        let finalDmg = await mathDamageProt(functionStuff.targetData.actor, damage.roll.total, functionStuff.damageType);
+        // pain (damage > toughness treshold)
+        let pain = checkPainEffect(functionStuff, finalDmg.damage);
+        damageTot = finalDmg.damage;
+        dmgFormula += finalDmg.text;
+
         damageText = functionStuff.targetData.name + game.i18n.localize('COMBAT.CHAT_DAMAGE') + damageTot.toString();
         damageTooltip = new Handlebars.SafeString(await damage.roll.getTooltip());
 
