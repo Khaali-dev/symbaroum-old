@@ -127,6 +127,7 @@
     "ABILITY.MASTER":"Maestro",
     "ABILITY.NOT_LEARNED":"Non Appresa",
     "ABILITY.ROLL_RESULT": "Risultato del dado: ",
+    "ABILITY.SECOND_ROLL_RESULT": "Rare critical dice roll result : ",
   
     "ACTION.ACTIVE": "Attiva",
     "ACTION.FREE": "Gratuita",
@@ -141,6 +142,7 @@
   
     "ARMOR.NAME": "Nome",
     "ARMOR.NOARMOR_NAME":"Nessun Armatura",
+    "ARMOR.SKIN": "Skin/Hide (No base protection)",
     "ARMOR.PROTECTION": "Protezione",
     "ARMOR.PROTECTIONABBR": "Prot.",
     "ARMOR.PROTECTION_SHORT": "Prot.",

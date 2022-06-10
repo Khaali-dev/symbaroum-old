@@ -65,12 +65,15 @@ export class SymbaroumItem extends Item {
         else if(data.type === "armor")
         {
             data.isStackableArmor = data.data.baseProtection === "0";
+            data.isSkin = data.data.baseProtection === "1d0";
             data.isLightArmor = data.data.baseProtection === "1d4";
             data.isMediumArmor = data.data.baseProtection === "1d6";
             data.isHeavyArmor = data.data.baseProtection == "1d8";
             data.isSuperArmor = data.data.baseProtection == "1d10" || data.data.baseProtection == "1d12";
             if(data.isStackableArmor ) {
-                data.data.reference = "stackable";                
+                data.data.reference = "stackable"; 
+            } else if(data.isSkin) {
+                data.data.reference = "skin"; 
             } else if(data.isLightArmor) {
                 data.data.reference = "lightarmor";
             } else if(data.isMediumArmor) {
@@ -156,7 +159,7 @@ export class SymbaroumItem extends Item {
                 if(data.data.bonusDamage.charAt(0) !== '+' ) {
                     data.data.bonusDamage = "+"+data.data.bonusDamage;
                 }
-                baseDamage += data.data.check;
+                baseDamage += data.data.bonusDamage;
             }
             data.data.pcDamage += baseDamage;
             if(data.data.qualities?.deepImpact){
@@ -572,8 +575,7 @@ export class SymbaroumItem extends Item {
                     npcDam = Math.ceil(new Roll(this.data.data.bonusDamage).evaluate({async:false, maximize: true}).total / 2);
                 } catch(err) {
                     ui.notifications?.error(`Could not evaluate weapon bonus for ${this.data.name} - check bonus damage fields - `+err);
-                }                    
-
+                }                                    
                 base.type = game.symbaroum.config.DAM_MOD;
                 base.alternatives = [{
                     damageMod: plus+this.data.data.bonusDamage,
@@ -666,6 +668,7 @@ export class SymbaroumItem extends Item {
         {
             return;
         }
+        /* - to be added later
         for(let i = 0; i < weapons.length; i++)
         {
             if(weapons[i].id != this.id) {
@@ -681,6 +684,7 @@ export class SymbaroumItem extends Item {
                 combatMods.armors[armors[i].id].defenseModifiers.push(base);            
             }
         }
+        */
     }
     getItemModifierHeavy(combatMods, armors, weapons, abilities) {
         this._getOwnWeaponBonuses(combatMods, armors, weapons, abilities);
@@ -722,7 +726,7 @@ export class SymbaroumItem extends Item {
             let base = this._getBaseFormat();
             let modifier = 0;
             // game.symbaroum.log("getItemModifierArmored", armors[i]); // TODO Remove
-            if(armors[i].isNoArmor) {
+            if(armors[i].isNoArmor || armors[i].data.isSkin) {
                 modifier = 4; // 1d4 armor
             }
             base.type = base.type = game.symbaroum.config.DAM_DICEUPGRADE;
@@ -2611,13 +2615,15 @@ async function weaponTypeLabel(weapon){
     return(game.i18n.localize('GEAR.OTHER'));
 }
 
-/* format the string to print the roll result, including the 2 dice if favour was involved, up to 3 rolls for multi-attacks
-@Params: {object}  rollData is the array of objects baseRoll function returns 
+/* format the string to print the roll result, including the 2 dice if favour was involved, and the second roll when the option rare crits is enabled
 @returns:  {string} the formated and localized string*/
 export function formatRollResult(rollDataElement){
     let rollResult = game.i18n.localize('ABILITY.ROLL_RESULT') + rollDataElement.diceResult.toString();
     if(rollDataElement.favour != 0){
         rollResult += "  (" + rollDataElement.dicesResult[0].toString() + " , " + rollDataElement.dicesResult[1].toString() + ")";
+    }
+    if(rollDataElement.secondRollResult){
+        rollResult += " - " + game.i18n.localize('ABILITY.SECOND_ROLL_RESULT') + rollDataElement.secondRollResult.toString();
     }
     return(rollResult);
 }
@@ -3148,6 +3154,15 @@ async function attackResult(rollData, functionStuff){
 
         rollDataElement.finalText="";
         rollDataElement.resultText = functionStuff.actingCharName + game.i18n.localize('COMBAT.CHAT_SUCCESS') + functionStuff.targetData.name;
+        if(rollDataElement.critSuccess) {
+            if(functionStuff.resistRoll){
+                //critSuccess is in the attackers perspective.
+                rollDataElement.resultText += " - "+game.i18n.localize('CHAT.CRITICAL_FAILURE');
+            }
+            else{
+                rollDataElement.resultText += " - "+game.i18n.localize('CHAT.CRITICAL_SUCCESS');
+            }
+        }
         if(functionStuff.weapon.qualities.jointed && !rollDataElement.trueActorSucceeded && rollDataElement.diceResult%2!=0){
             rollDataElement.resultText = game.i18n.localize('COMBAT.CHAT_JOINTED_SECONDARY');
         }
@@ -3181,6 +3196,15 @@ async function attackResult(rollData, functionStuff){
         }
         else{
             rollDataElement.resultText = functionStuff.actingCharName + game.i18n.localize('COMBAT.CHAT_FAILURE');
+            if(rollDataElement.critFail) {
+                //critFail is in the attackers perspective, so it means the defenser gets a free attack
+                if(functionStuff.resistRoll){
+                    rollDataElement.resultText += " - "+game.i18n.localize('CHAT.CRITICAL_SUCCESS') + " : " + game.i18n.localize('CHAT.CRITICAL_FREEATTACK');
+                }
+                else{
+                    rollDataElement.resultText += " - "+game.i18n.localize('CHAT.CRITICAL_FAILURE') + " : " + game.i18n.localize('CHAT.CRITICAL_FAILURE_FREEATTACK');
+                }
+            }
         }
     }
     if(damageTot <= 0){

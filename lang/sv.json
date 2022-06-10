@@ -127,6 +127,7 @@
   "ABILITY.MASTER":"Mästare",
   "ABILITY.NOT_LEARNED":"Ej inlärd",
   "ABILITY.ROLL_RESULT": "Tärningsslag resultat : ",
+  "ABILITY.SECOND_ROLL_RESULT": "Rare critical dice roll result : ",
   
   "ACTION.ACTIVE": "Aktiv",
   "ACTION.FREE": "Fri",
@@ -141,6 +142,7 @@
 
   "ARMOR.NAME": "Namn",
   "ARMOR.NOARMOR_NAME":"Utan bepansring",
+  "ARMOR.SKIN": "Skin/Hide (No base protection)",
   "ARMOR.PROTECTION": "Bepansring",
   "ARMOR.PROTECTIONABBR": "Skydd",  
   "ARMOR.PROTECTION_SHORT": "Skydd",
